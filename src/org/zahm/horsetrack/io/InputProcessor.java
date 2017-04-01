@@ -1,7 +1,9 @@
 package org.zahm.horsetrack.io;
 
-import org.zahm.horsetrack.exceptions.InvalidCommandException;
+import org.zahm.horsetrack.exception.*;
+import org.zahm.horsetrack.exception.InvalidBetException;
 import org.zahm.horsetrack.Main;
+import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.manager.HorseManager;
 import org.zahm.horsetrack.manager.InventoryManager;
 
@@ -46,31 +48,42 @@ public class InputProcessor {
                 // Separate the two inputs - throw an exception if this is invalid
                 String[] inputSplit = input.split(" ");
                 if (inputSplit.length != 2)
-                    throw new InvalidCommandException();
+                    throw new InvalidCommandException(input);
+
+                int horse, bet;
 
                 // If the first input is "W", we are setting a winning horse
                 if (SET_WINNER_COMMAND.equalsIgnoreCase(inputSplit[0])) {
-                    int winningHorse = Integer.parseInt(inputSplit[1]);
-                    horseManager.setWinner(winningHorse);
+                    try {
+                        horse = Integer.parseInt(inputSplit[1]);
+                    } catch (Exception e) {
+                        throw new InvalidHorseException(inputSplit[0]);
+                    }
+                    horseManager.setWinner(horse);
                 }
                 // Otherwise, we are checking a bet
                 else {
-                    int horse = Integer.parseInt(inputSplit[0]);
-                    int bet = Integer.parseInt(inputSplit[1]);
+                    try {
+                        horse = Integer.parseInt(inputSplit[0]);
+                    } catch (Exception e) {
+                        throw new InvalidHorseException(inputSplit[0]);
+                    }
+                    try {
+                        bet = Integer.parseInt(inputSplit[1]);
+                    } catch (Exception e) {
+                        throw new InvalidBetException();
+                    }
                     int payout = horseManager.checkPayout(horse, bet);
                     if (payout > 0)
                         inventoryManager.payout(payout);
                 }
             }
-        }/*
-        catch (InvalidBetException e) {
-            System.out.println(String.format("Invalid Bet: %s", input));
         }
-        catch (InvalidHorseException e) {
-            System.out.println(String.format("Invalid Horse Number: %s", input));
-        }*/
-        catch (InvalidCommandException e) {
-            System.out.println(String.format("Invalid Command: %s", input));
+        catch (HorseTrackInputException e) {
+            System.out.println(e.getMessage());
+        }
+        catch (Exception e) {
+            System.out.println(String.format("Unexpected error: %s", e.getMessage()));
         }
     }
 }

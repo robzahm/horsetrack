@@ -1,6 +1,5 @@
 package org.zahm.horsetrack.manager;
 
-import org.zahm.horsetrack.exceptions.InvalidHorseException;
 import org.zahm.horsetrack.model.Horse;
 
 import java.util.ArrayList;
