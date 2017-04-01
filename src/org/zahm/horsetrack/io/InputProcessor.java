@@ -21,21 +21,57 @@ public class InputProcessor {
         this.horseManager = theHorseManager;
     }
 
+    /**
+     * The following commands are valid (not case sensitive):
+     * R : Restock
+     * Q: Quit
+     * W #: Set Winning Horse
+     * # #: Payout
+     *
+     * Anything else is invalid, as are decimals
+     * @param input
+     */
     public void processCommand(String input) {
         try {
+            // Restock Command
             if (RESTOCK_COMMAND.equalsIgnoreCase(input)) {
                 inventoryManager.restock();
-            } else if (QUIT_COMMAND.equalsIgnoreCase(input)) {
+            }
+            // Quit Command
+            else if (QUIT_COMMAND.equalsIgnoreCase(input)) {
                 Main.quit();
-            } else if (SET_WINNER_COMMAND.equalsIgnoreCase(input)) {
-
-                horseManager.checkPayout(0, 0);
             }
-            // else if (input can be parsed into two numbers
+            // Set Winning Number or Check Bet (or invalid command)
             else {
-                throw new InvalidCommandException();
+                // Separate the two inputs - throw an exception if this is invalid
+                String[] inputSplit = input.split(" ");
+                if (inputSplit.length != 2)
+                    throw new InvalidCommandException();
+
+                // If the first input is "W", we are setting a winning horse
+                if (SET_WINNER_COMMAND.equalsIgnoreCase(inputSplit[0])) {
+                    int winningHorse = Integer.parseInt(inputSplit[1]);
+                    horseManager.setWinner(winningHorse);
+                }
+                // Otherwise, we are checking a bet
+                else {
+                    int horse = Integer.parseInt(inputSplit[0]);
+                    int bet = Integer.parseInt(inputSplit[1]);
+                    int payout = horseManager.checkPayout(horse, bet);
+                    if (payout > 0)
+                        inventoryManager.payout(payout);
+                }
             }
+
+
+            horseManager.checkPayout(0, 0);
+        }/*
+        catch (InvalidBetException e) {
+            System.out.println(String.format("Invalid Bet: %s", input));
         }
+        catch (InvalidHorseException e) {
+            System.out.println(String.format("Invalid Horse Number: %s", input));
+        }*/
         catch (InvalidCommandException e) {
             System.out.println(String.format("Invalid Command: %s", input));
         }

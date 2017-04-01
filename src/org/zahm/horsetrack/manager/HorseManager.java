@@ -1,5 +1,6 @@
 package org.zahm.horsetrack.manager;
 
+import org.zahm.horsetrack.exceptions.InvalidHorseException;
 import org.zahm.horsetrack.model.Horse;
 
 import java.util.ArrayList;
@@ -31,14 +32,18 @@ public class HorseManager {
         horses.add(new Horse(7, "Gin Stinger", 6, false));
     }
 
-    public void setWinner (int winner) {
+    public void setWinner (int winner){
         winningHorse = horses.get(winner);
     }
 
     public int checkPayout(int horseNumber, int amountOfBet) {
         int winnings = 0;
-        if (winningHorse.getNumber() == horseNumber)
+        if (winningHorse.getNumber() == horseNumber) {
             winnings = winningHorse.calculatePayout(amountOfBet);
+            System.out.println(String.format("Payout: %s,%d", winningHorse.getName(), winnings));
+        } else {
+            System.out.println(String.format("No Payout: %s", winningHorse.getName()));
+        }
 
         return winnings;
     }
