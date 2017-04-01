@@ -1,11 +1,11 @@
 package org.zahm.horsetrack;
 
+import org.zahm.horsetrack.manager.InventoryManager;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        System.out.println("Running");
-
-
+        InventoryManager inventoryManager = new InventoryManager();
+        inventoryManager.printStatus();
     }
 }

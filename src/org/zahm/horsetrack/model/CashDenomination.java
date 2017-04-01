@@ -12,6 +12,16 @@ public class CashDenomination {
         this.setNumBills(theNumBills);
     }
 
+    // Change to print/log from a central location
+    public void printStatus() {
+        System.out.println(String.format("$%d,%d",
+                getDenominationValue(), getNumBills()));
+    }
+
+    public void dispenseBills(int numBillsToDispense) {
+        this.numBills -= numBillsToDispense;
+    }
+
 
     public int getDenominationValue() {
         return denominationValue;
