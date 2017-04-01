@@ -10,10 +10,19 @@ import java.util.ArrayList;
 public class HorseManager {
     public static final String HORSES_TEXT = "Horses:";
 
+    // Keep as list?  We want a fast lookup to set the winner, and an ordered list to print
+    // Will assume no duplicate horse numbers
     private ArrayList<Horse> horses = new ArrayList<Horse>();
 
+    // Keep a reference to the winning horse
+    private Horse winningHorse;
+
     public HorseManager() {
-        horses.add(new Horse(1, "That Darn Gray Cat", 5, true));
+        // Create the default winning horse
+        winningHorse = new Horse(1, "That Darn Gray Cat", 5, true);
+
+        // Add the horses to the list
+        horses.add(winningHorse);
         horses.add(new Horse(2, "Fort Utopia", 10, false));
         horses.add(new Horse(3, "Count Sheep", 9, false));
         horses.add(new Horse(4, "Ms Traitour", 5, false));
@@ -22,7 +31,19 @@ public class HorseManager {
         horses.add(new Horse(7, "Gin Stinger", 6, false));
     }
 
-    // !!!!! MAKE THE MANAGERS AN ABSTRACT CLASS
+    public void setWinner (int winner) {
+        winningHorse = horses.get(winner);
+    }
+
+    public int checkPayout(int horseNumber, int amountOfBet) {
+        int winnings = 0;
+        if (winningHorse.getNumber() == horseNumber)
+            winnings = winningHorse.calculatePayout(amountOfBet);
+
+        return winnings;
+    }
+
+    // !!!!! MAKE THE MANAGERS AN ABSTRACT CLASS?
     public void printStatus() {
         System.out.println(HORSES_TEXT);
         for (Horse horse: horses) {

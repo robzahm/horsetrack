@@ -25,7 +25,7 @@ public class Horse {
                 getNumber(), getName(), getOdds(), printIsWinner()));
     }
 
-    public int calculateWinnings(int amountOfBet) {
+    public int calculatePayout(int amountOfBet) {
         return getOdds() * amountOfBet;
     }
 

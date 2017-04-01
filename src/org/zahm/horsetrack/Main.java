@@ -1,5 +1,6 @@
 package org.zahm.horsetrack;
 
+import org.zahm.horsetrack.io.InputProcessor;
 import org.zahm.horsetrack.manager.HorseManager;
 import org.zahm.horsetrack.manager.InventoryManager;
 
@@ -12,14 +13,19 @@ public class Main {
     public static void main(String[] args) {
         InventoryManager inventoryManager = new InventoryManager();
         HorseManager horseManager = new HorseManager();
+        InputProcessor inputProcessor = new InputProcessor(inventoryManager, horseManager);
 
-        inventoryManager.printStatus();
-        horseManager.printStatus();
-
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         while (isRunning) {
             // Run loop
-            String input = scanner.nextLine();
+
+            // Print the latest inventory status
+            inventoryManager.printStatus();
+            horseManager.printStatus();
+
+            // Process the input command
+            String command = input.nextLine();
+            inputProcessor.processCommand(command);
         }
     }
 
