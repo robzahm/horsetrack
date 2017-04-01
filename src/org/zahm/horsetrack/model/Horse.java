@@ -10,30 +10,28 @@ public class Horse {
     private int number;
     private String name;
     private int odds;
-    private boolean isWinner;
 
-    public Horse(int number, String name, int odds, boolean isWinner) {
+    public Horse(int number, String name, int odds) {
         this.setNumber(number);
         this.setName(name);
         this.setOdds(odds);
-        this.setWinner(isWinner);
+    }
+
+    private String printIsWinner(Horse winningHorse) {
+        if (winningHorse.getNumber() == getNumber())
+            return WON;
+        else
+            return LOST;
     }
 
     // Change to print/log from a central location
-    public void printStatus() {
+    public void printStatus(Horse winningHorse) {
         System.out.println(String.format("%d,%s,%d,%s",
-                getNumber(), getName(), getOdds(), printIsWinner()));
+                getNumber(), getName(), getOdds(), printIsWinner(winningHorse)));
     }
 
     public int calculatePayout(int amountOfBet) {
         return getOdds() * amountOfBet;
-    }
-
-    public String printIsWinner() {
-        if (isWinner)
-            return WON;
-        else
-            return LOST;
     }
 
     public int getNumber() {
@@ -58,13 +56,5 @@ public class Horse {
 
     public void setOdds(int odds) {
         this.odds = odds;
-    }
-
-    public boolean isWinner() {
-        return isWinner;
-    }
-
-    public void setWinner(boolean winner) {
-        isWinner = winner;
     }
 }

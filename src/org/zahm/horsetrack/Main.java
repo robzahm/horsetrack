@@ -6,7 +6,6 @@ import org.zahm.horsetrack.manager.InventoryManager;
 
 import java.util.Scanner;
 
-// !! REFACTOR THIS CLASS
 public class Main {
     private static boolean isRunning = true;
 
@@ -15,17 +14,22 @@ public class Main {
         HorseManager horseManager = new HorseManager();
         InputProcessor inputProcessor = new InputProcessor(inventoryManager, horseManager);
 
+        // Print the starting inventory status
+        inventoryManager.printStatus();
+        horseManager.printStatus();
+
         Scanner input = new Scanner(System.in);
         while (isRunning) {
             // Run loop
 
-            // Print the latest inventory status
-            inventoryManager.printStatus();
-            horseManager.printStatus();
-
             // Process the input command
             String command = input.nextLine();
             inputProcessor.processCommand(command);
+
+            // Print the latest inventory status
+            // (assuming we should do so even after a quit command)
+            inventoryManager.printStatus();
+            horseManager.printStatus();
         }
     }
 
