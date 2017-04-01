@@ -57,7 +57,7 @@ public class InputProcessor {
                     try {
                         horse = Integer.parseInt(inputSplit[1]);
                     } catch (Exception e) {
-                        throw new InvalidHorseException(inputSplit[0]);
+                        throw new InvalidHorseException(inputSplit[1]);
                     }
                     horseManager.setWinner(horse);
                 }
@@ -71,7 +71,7 @@ public class InputProcessor {
                     try {
                         bet = Integer.parseInt(inputSplit[1]);
                     } catch (Exception e) {
-                        throw new InvalidBetException();
+                        throw new InvalidBetException(inputSplit[1]);
                     }
                     int payout = horseManager.checkPayout(horse, bet);
                     if (payout > 0)

@@ -9,4 +9,9 @@ public class InvalidCommandException extends HorseTrackInputException {
     public InvalidCommandException(String input) {
         super(input);
     }
+
+    @Override
+    public String getMessage() {
+        return String.format(formattedMessage, input);
+    }
 }

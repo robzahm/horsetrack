@@ -1,5 +1,6 @@
 package org.zahm.horsetrack.manager;
 
+import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.model.Horse;
 
 import java.util.ArrayList;
@@ -18,6 +19,16 @@ public class HorseManager {
     // Keep a reference to the winning horse
     private Horse winningHorse;
 
+    // !! ASSUMES THE INDEX MATCHES THE HORSE NUMBER
+    private Horse getHorseWithNumber(int horseNumber) throws InvalidHorseException {
+        try {
+            return horses.get(horseNumber-1);
+        }
+        catch (Exception e) {
+            throw new InvalidHorseException(Integer.toString(horseNumber));
+        }
+    }
+
     public HorseManager() {
         // Add the horses to the list
         horses.add(new Horse(1, "That Darn Gray Cat", 5));
@@ -32,12 +43,12 @@ public class HorseManager {
         winningHorse = horses.get(0);
     }
 
-    // !! ASSUMES THE INDEX MATCHES THE HORSE NUMBER
-    public void setWinner (int winner){
-        winningHorse = horses.get(winner-1);
+
+    public void setWinner (int winner) throws InvalidHorseException {
+        winningHorse = getHorseWithNumber(winner);
     }
 
-    public int checkPayout(int horseNumber, int amountOfBet) {
+    public int checkPayout(int horseNumber, int amountOfBet){
         int winnings = 0;
         if (winningHorse.getNumber() == horseNumber) {
             winnings = winningHorse.calculatePayout(amountOfBet);

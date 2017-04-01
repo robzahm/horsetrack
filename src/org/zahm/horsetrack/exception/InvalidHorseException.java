@@ -9,4 +9,9 @@ public class InvalidHorseException extends HorseTrackInputException {
     public InvalidHorseException(String input) {
         super(input);
     }
+
+    @Override
+    public String getMessage() {
+        return String.format(formattedMessage, input);
+    }
 }
