@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d7b3271-a67a-4d5d-9fd1-5bca81dd157e" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidBetException.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidCommandException.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidHorseException.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/Main.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidHorseException.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidHorseException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/manager/HorseManager.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/manager/HorseManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Horse.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Horse.java" />
     </list>
@@ -54,7 +55,27 @@
         <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidHorseException.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" column="34" lean-forward="false" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+              <caret line="5" column="52" lean-forward="false" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvalidBetException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidBetException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="50" lean-forward="false" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InvalidCommandException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidCommandException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="56" lean-forward="true" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -166,6 +187,8 @@
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidCommandException.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/Main.java" />
+        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidBetException.java" />
+        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidHorseException.java" />
       </list>
     </option>
   </component>
@@ -597,14 +620,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidCommandException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="56" lean-forward="true" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -698,10 +713,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidBetException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="50" lean-forward="false" selection-start-line="5" selection-start-column="50" selection-end-line="5" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidCommandException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="56" lean-forward="true" selection-start-line="5" selection-start-column="56" selection-end-line="5" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/exceptions/InvalidHorseException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="34" lean-forward="false" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+          <caret line="5" column="52" lean-forward="false" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
           <folding />
         </state>
       </provider>
