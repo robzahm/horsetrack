@@ -32,7 +32,7 @@ public class InventoryManager {
 
         for (int i = inventory.size()-1; i >= 0; i--) {
             CashDenomination denomination = inventory.get(i);
-            int amountToDispense = denomination.getAmountToDispense(payoutAmount);
+            int amountToDispense = denomination.getAmountToDispense(remainingPayout);
             remainingPayout -= amountToDispense;
         }
 

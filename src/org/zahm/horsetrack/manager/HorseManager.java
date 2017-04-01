@@ -40,7 +40,7 @@ public class HorseManager {
         int winnings = 0;
         if (winningHorse.getNumber() == horseNumber) {
             winnings = winningHorse.calculatePayout(amountOfBet);
-            System.out.println(String.format("Payout: %s,%d", winningHorse.getName(), winnings));
+            System.out.println(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
         } else {
             System.out.println(String.format("No Payout: %s", winningHorse.getName()));
         }

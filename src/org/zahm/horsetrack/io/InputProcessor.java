@@ -62,9 +62,6 @@ public class InputProcessor {
                         inventoryManager.payout(payout);
                 }
             }
-
-
-            horseManager.checkPayout(0, 0);
         }/*
         catch (InvalidBetException e) {
             System.out.println(String.format("Invalid Bet: %s", input));
