@@ -49,13 +49,13 @@ public class HorseManager {
         winningHorse = getHorseWithNumber(winner);
     }
 
-    public int checkPayout(int horseNumber, int amountOfBet){
+    public int checkPayout(int horseNumber, int amountOfBet) throws InvalidHorseException {
         int winnings = 0;
         if (winningHorse.getNumber() == horseNumber) {
             winnings = winningHorse.calculatePayout(amountOfBet);
             Output.logOutput(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
         } else {
-            Output.logOutput(String.format("No Payout: %s", winningHorse.getName()));
+            Output.logOutput(String.format("No Payout: %s", getHorseWithNumber(horseNumber).getName()));
         }
 
         return winnings;
