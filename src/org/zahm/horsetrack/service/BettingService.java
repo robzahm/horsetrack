@@ -4,7 +4,7 @@ import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.Horse;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Service class for the Horses and Betting
