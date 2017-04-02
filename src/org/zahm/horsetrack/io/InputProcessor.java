@@ -78,7 +78,7 @@ public class InputProcessor {
             throw new InvalidBetException(betAmountString);
         }
 
-        int payout = horseManager.checkPayout(horseNumber, betAmount);
+        int payout = horseManager.calculatePayout(horseNumber, betAmount);
         if (payout > 0)
             inventoryManager.payout(payout);
     }

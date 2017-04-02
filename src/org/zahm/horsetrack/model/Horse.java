@@ -25,7 +25,7 @@ public class Horse {
      * @return
      */
     private String printIsWinner(Horse winningHorse) {
-        if (winningHorse.getNumber() == getNumber())
+        if (this.equals(winningHorse))
             return WON;
         else
             return LOST;
@@ -40,13 +40,22 @@ public class Horse {
                 getNumber(), getName(), getOdds(), printIsWinner(winningHorse)));
     }
 
-    /**
-     * Returns the payout if this horse wins
-     * @param amountOfBet
-     * @return
-     */
-    public int calculatePayout(int amountOfBet) {
-        return getOdds() * amountOfBet;
+    // Use the horse number for equals, and set it as the hashcode value as well
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (!(obj instanceof Horse))
+            return false;
+        if (obj == this)
+            return true;
+        return this.number == (((Horse)obj).number);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.number;
     }
 
     public int getNumber() {
