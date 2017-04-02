@@ -123,7 +123,7 @@ public class InputProcessor {
             }
         }
         catch (HorseTrackInputException e) {
-            Output.logOutput(e.getMessage());
+            Output.logOutput(e.getFormattedMessage());
         }
         catch (Exception e) {
             Output.logOutput(String.format("Unexpected error: %s", e.getMessage()));

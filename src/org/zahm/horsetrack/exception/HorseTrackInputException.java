@@ -13,8 +13,7 @@ public class HorseTrackInputException extends Exception {
         this.input = theInput;
     }
 
-    @Override
-    public String getMessage() {
+    public String getFormattedMessage() {
         return String.format(formattedMessage, input);
     }
 }
