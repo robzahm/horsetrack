@@ -1,5 +1,6 @@
 package org.zahm.horsetrack.manager;
 
+import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.CashDenomination;
 
 import java.util.ArrayList;
@@ -39,17 +40,17 @@ public class InventoryManager {
         // If we've gotten to the end and the payout amount is 0, "commit" the transaction, dispense the bills,
         // and log the message to the console
         if (remainingPayout == 0) {
-            System.out.println("Dispensing:");
+            Output.logOutput("Dispensing:");
             for (CashDenomination denomination:inventory) {
                 denomination.dispenseBills();
             }
         } else {
-            System.out.println(String.format("Insufficient Funds: %d", payoutAmount));
+            Output.logOutput(String.format("Insufficient Funds: %d", payoutAmount));
         }
     }
 
     public void printStatus() {
-        System.out.println(INVENTORY_TEXT);
+        Output.logOutput(INVENTORY_TEXT);
         for (CashDenomination denomination: inventory) {
             denomination.printStatus();
         }

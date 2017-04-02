@@ -1,5 +1,7 @@
 package org.zahm.horsetrack.model;
 
+import org.zahm.horsetrack.io.Output;
+
 /**
  * Created by Zahm Robert on 4/1/2017.
  */
@@ -26,7 +28,7 @@ public class Horse {
 
     // Change to print/log from a central location
     public void printStatus(Horse winningHorse) {
-        System.out.println(String.format("%d,%s,%d,%s",
+        Output.logOutput(String.format("%d,%s,%d,%s",
                 getNumber(), getName(), getOdds(), printIsWinner(winningHorse)));
     }
 

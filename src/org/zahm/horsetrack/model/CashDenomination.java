@@ -1,5 +1,7 @@
 package org.zahm.horsetrack.model;
 
+import org.zahm.horsetrack.io.Output;
+
 /**
  * Created by Zahm Robert on 4/1/2017.
  */
@@ -21,7 +23,7 @@ public class CashDenomination {
 
     // Change to print/log from a central location
     public void printStatus() {
-        System.out.println(String.format("$%d,%d",
+        Output.logOutput(String.format("$%d,%d",
                 getDenominationValue(), getNumBills()));
     }
 
@@ -41,7 +43,7 @@ public class CashDenomination {
     // "Commit" the transaction and dispense the bills
     public void dispenseBills() {
         this.numBills -= numBillsToDispense;
-        System.out.println(String.format("$%d,%d", denominationValue, numBillsToDispense));
+        Output.logOutput(String.format("$%d,%d", denominationValue, numBillsToDispense));
     }
 
 

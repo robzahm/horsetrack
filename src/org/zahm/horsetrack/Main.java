@@ -19,9 +19,9 @@ public class Main {
         horseManager.printStatus();
 
         Scanner input = new Scanner(System.in);
-        while (isRunning) {
-            // Run loop
 
+        // Run loop
+        while (isRunning) {
             // Process the input command
             String command = input.nextLine();
             inputProcessor.processCommand(command);

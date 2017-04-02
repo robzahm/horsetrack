@@ -1,6 +1,7 @@
 package org.zahm.horsetrack.manager;
 
 import org.zahm.horsetrack.exception.InvalidHorseException;
+import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.Horse;
 
 import java.util.ArrayList;
@@ -52,9 +53,9 @@ public class HorseManager {
         int winnings = 0;
         if (winningHorse.getNumber() == horseNumber) {
             winnings = winningHorse.calculatePayout(amountOfBet);
-            System.out.println(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
+            Output.logOutput(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
         } else {
-            System.out.println(String.format("No Payout: %s", winningHorse.getName()));
+            Output.logOutput(String.format("No Payout: %s", winningHorse.getName()));
         }
 
         return winnings;
@@ -62,7 +63,7 @@ public class HorseManager {
 
     // !!!!! MAKE THE MANAGERS AN ABSTRACT CLASS?
     public void printStatus() {
-        System.out.println(HORSES_TEXT);
+        Output.logOutput(HORSES_TEXT);
         for (Horse horse: horses) {
             horse.printStatus(winningHorse);
         }

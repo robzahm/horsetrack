@@ -80,10 +80,10 @@ public class InputProcessor {
             }
         }
         catch (HorseTrackInputException e) {
-            System.out.println(e.getMessage());
+            Output.logOutput(e.getMessage());
         }
         catch (Exception e) {
-            System.out.println(String.format("Unexpected error: %s", e.getMessage()));
+            Output.logOutput(String.format("Unexpected error: %s", e.getMessage()));
         }
     }
 }
