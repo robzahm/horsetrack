@@ -4,21 +4,21 @@ import org.zahm.horsetrack.exception.*;
 import org.zahm.horsetrack.exception.InvalidBetException;
 import org.zahm.horsetrack.Main;
 import org.zahm.horsetrack.exception.InvalidHorseException;
-import org.zahm.horsetrack.manager.HorseManager;
-import org.zahm.horsetrack.manager.InventoryManager;
+import org.zahm.horsetrack.service.BettingService;
+import org.zahm.horsetrack.service.CashService;
 
 /**
- * Created by Zahm Robert on 4/1/2017.
+ * Class to handle the user input
  */
 public class InputProcessor {
     private static final String RESTOCK_COMMAND = "R";
     private static final String QUIT_COMMAND = "Q";
     private static final String SET_WINNER_COMMAND = "W";
 
-    private InventoryManager inventoryManager;
-    private HorseManager horseManager;
+    private CashService inventoryManager;
+    private BettingService horseManager;
 
-    public InputProcessor(InventoryManager theInventoryManager ,HorseManager theHorseManager) {
+    public InputProcessor(CashService theInventoryManager , BettingService theHorseManager) {
         this.inventoryManager = theInventoryManager;
         this.horseManager = theHorseManager;
     }

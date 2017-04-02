@@ -1,8 +1,7 @@
 package org.zahm.horsetrack.io;
 
 /**
- * Created by Zahm Robert on 4/2/2017.
- * Class to log the output of the syste
+ * Class to log the output of the system
  */
 public class Output {
 

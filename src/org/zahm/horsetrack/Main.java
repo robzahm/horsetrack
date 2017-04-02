@@ -1,24 +1,27 @@
 package org.zahm.horsetrack;
 
 import org.zahm.horsetrack.io.InputProcessor;
-import org.zahm.horsetrack.manager.HorseManager;
-import org.zahm.horsetrack.manager.InventoryManager;
+import org.zahm.horsetrack.service.BettingService;
+import org.zahm.horsetrack.service.CashService;
 
 import java.util.Scanner;
 
+/**
+ * Main driver class for the application
+ */
 public class Main {
     private static boolean isRunning = true;
 
     public static void main(String[] args) {
-        InventoryManager inventoryManager = new InventoryManager();
-        HorseManager horseManager = new HorseManager();
+        // Initialize the services
+        CashService inventoryManager = new CashService();
+        BettingService horseManager = new BettingService();
         InputProcessor inputProcessor = new InputProcessor(inventoryManager, horseManager);
+        Scanner input = new Scanner(System.in);
 
         // Print the starting inventory status
         inventoryManager.printStatus();
         horseManager.printStatus();
-
-        Scanner input = new Scanner(System.in);
 
         // Run loop
         while (isRunning) {
@@ -33,6 +36,9 @@ public class Main {
         }
     }
 
+    /**
+     * Quits the application
+     */
     public static void quit() {
         isRunning = false;
     }

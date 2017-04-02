@@ -3,11 +3,11 @@ package org.zahm.horsetrack.model;
 import org.zahm.horsetrack.io.Output;
 
 /**
- * Created by Zahm Robert on 4/1/2017.
+ * Domain object that stores the properties of the Horse
  */
 public class Horse {
-    public static final String WON = "won";
-    public static final String LOST = "lost";
+    private static final String WON = "won";
+    private static final String LOST = "lost";
 
     private int number;
     private String name;
@@ -19,6 +19,11 @@ public class Horse {
         this.setOdds(odds);
     }
 
+    /**
+     * Helper method used to log the winning/losing status message
+     * @param winningHorse
+     * @return
+     */
     private String printIsWinner(Horse winningHorse) {
         if (winningHorse.getNumber() == getNumber())
             return WON;
@@ -26,12 +31,20 @@ public class Horse {
             return LOST;
     }
 
-    // Change to print/log from a central location
+    /**
+     * Logs the status of this horse, including whether or not it is the winner
+     * @param winningHorse
+     */
     public void printStatus(Horse winningHorse) {
         Output.logOutput(String.format("%d,%s,%d,%s",
                 getNumber(), getName(), getOdds(), printIsWinner(winningHorse)));
     }
 
+    /**
+     * Returns the payout if this horse wins
+     * @param amountOfBet
+     * @return
+     */
     public int calculatePayout(int amountOfBet) {
         return getOdds() * amountOfBet;
     }

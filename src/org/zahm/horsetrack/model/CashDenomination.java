@@ -3,7 +3,7 @@ package org.zahm.horsetrack.model;
 import org.zahm.horsetrack.io.Output;
 
 /**
- * Created by Zahm Robert on 4/1/2017.
+ * Domain object for a specific cash denomination
  */
 public class CashDenomination {
     // Value of this cash denomination (e.g., $1, $5, etc.)
@@ -21,14 +21,21 @@ public class CashDenomination {
         this.setNumBills(theNumBills);
     }
 
-    // Change to print/log from a central location
+    /**
+     * Prints the status of this cash denomination
+     */
     public void printStatus() {
         Output.logOutput(String.format("$%d,%d",
                 getDenominationValue(), getNumBills()));
     }
 
-    // Return the amount of money that will be dispensed
-    public int getAmountToDispense(int amount) {
+    /**
+     * Returns the number of bills of this denomination that will be dispensed to complete
+     * the payout amount
+     * @param amount
+     * @return
+     */
+    public int calculateBillsToDispense(int amount) {
         // Determine the theoretical number of bills of this denomination that can service the request
         numBillsToDispense = Math.floorDiv(amount, denominationValue);
 
@@ -36,11 +43,16 @@ public class CashDenomination {
         // (e.g, there might not be enough bills to meet the need)
         numBillsToDispense = Math.min(numBillsToDispense, numBills);
 
-        // Return the amount being dispensed
+        // Return the dollar amount being dispensed
         return numBillsToDispense * denominationValue;
     }
 
     // "Commit" the transaction and dispense the bills
+
+    /**
+     * Dispense the bills that were set in the calculation
+     * !! Should this state be offloaded to the service?
+     */
     public void dispenseBills() {
         this.numBills -= numBillsToDispense;
         Output.logOutput(String.format("$%d,%d", denominationValue, numBillsToDispense));

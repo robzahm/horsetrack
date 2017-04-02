@@ -1,4 +1,4 @@
-package org.zahm.horsetrack.manager;
+package org.zahm.horsetrack.service;
 
 import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.CashDenomination;
@@ -6,18 +6,22 @@ import org.zahm.horsetrack.model.CashDenomination;
 import java.util.ArrayList;
 
 /**
- * Created by Zahm Robert on 4/1/2017.
+ * Service class to manage the cash inventory of the machine
  */
-public class InventoryManager {
-    public static final String INVENTORY_TEXT = "Inventory:";
+public class CashService {
+    private static final String INVENTORY_TEXT = "Inventory:";
 
     private ArrayList<CashDenomination> inventory;
 
-    public InventoryManager() {
+    public CashService() {
         restock();
     }
 
-    // Assume it is okay to lose track of the amount of money in the machine when restocking
+    /**
+     * Resets the cash inventory to its initial amount
+     *
+     * Assume it is okay to lose track of the amount of money in the machine when restocking
+     */
     public void restock() {
         inventory = new ArrayList<CashDenomination>();
         inventory.add(new CashDenomination(1,10));
@@ -27,13 +31,20 @@ public class InventoryManager {
         inventory.add(new CashDenomination(100, 10));
     }
 
-    // Work backwards through the list using the largest bills possible to service the request
+    /**
+     * Performs the payout if the machine can service the request, otherwise an insufficient funds
+     * message will be logged
+     *
+     * Work backwards through the list using the largest bills possible to service the request in order
+     * to pay out using the fewest number of bills possible
+     * @param payoutAmount
+     */
     public void payout(int payoutAmount) {
         int remainingPayout = payoutAmount;
 
         for (int i = inventory.size()-1; i >= 0; i--) {
             CashDenomination denomination = inventory.get(i);
-            int amountToDispense = denomination.getAmountToDispense(remainingPayout);
+            int amountToDispense = denomination.calculateBillsToDispense(remainingPayout);
             remainingPayout -= amountToDispense;
         }
 
@@ -44,11 +55,17 @@ public class InventoryManager {
             for (CashDenomination denomination:inventory) {
                 denomination.dispenseBills();
             }
-        } else {
+        }
+        // If the remaining amount to be paid out is not 0, we didn't have the right mix of bills
+        // to service this request
+        else {
             Output.logOutput(String.format("Insufficient Funds: %d", payoutAmount));
         }
     }
 
+    /**
+     * Print the status of the cash inventory
+     */
     public void printStatus() {
         Output.logOutput(INVENTORY_TEXT);
         for (CashDenomination denomination: inventory) {

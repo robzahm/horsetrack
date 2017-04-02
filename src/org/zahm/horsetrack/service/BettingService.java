@@ -1,4 +1,4 @@
-package org.zahm.horsetrack.manager;
+package org.zahm.horsetrack.service;
 
 import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.io.Output;
@@ -7,10 +7,10 @@ import org.zahm.horsetrack.model.Horse;
 import java.util.ArrayList;
 
 /**
- * Created by Zahm Robert on 4/1/2017.
+ * Service class for the Horses and Betting
  */
-public class HorseManager {
-    public static final String HORSES_TEXT = "Horses:";
+public class BettingService {
+    private static final String HORSES_TEXT = "Horses:";
 
     // Keep as list?  We want a fast lookup to set the winner, and an ordered list to print
     // Will assume no duplicate horse numbers
@@ -20,17 +20,7 @@ public class HorseManager {
     // Keep a reference to the winning horse
     private Horse winningHorse;
 
-    // !! ASSUMES THE INDEX MATCHES THE HORSE NUMBER
-    private Horse getHorseWithNumber(int horseNumber) throws InvalidHorseException {
-        try {
-            return horses.get(horseNumber-1);
-        }
-        catch (Exception e) {
-            throw new InvalidHorseException(Integer.toString(horseNumber));
-        }
-    }
-
-    public HorseManager() {
+    public BettingService() {
         // Add the horses to the list
         horses.add(new Horse(1, "That Darn Gray Cat", 5));
         horses.add(new Horse(2, "Fort Utopia", 10));
@@ -44,11 +34,38 @@ public class HorseManager {
         winningHorse = horses.get(0);
     }
 
+    /**
+     * Helper method to return the horse with the given number
+     * !! ASSUMES THE INDEX MATCHES THE HORSE NUMBER
+     * @param horseNumber
+     * @return
+     * @throws InvalidHorseException
+     */
+    private Horse getHorseWithNumber(int horseNumber) throws InvalidHorseException {
+        try {
+            return horses.get(horseNumber-1);
+        }
+        catch (Exception e) {
+            throw new InvalidHorseException(Integer.toString(horseNumber));
+        }
+    }
 
+    /**
+     * Sets the winning horse
+     * @param winner
+     * @throws InvalidHorseException
+     */
     public void setWinner (int winner) throws InvalidHorseException {
         winningHorse = getHorseWithNumber(winner);
     }
 
+    /**
+     * Returns the payout of a particular horse should it win
+     * @param horseNumber
+     * @param amountOfBet
+     * @return
+     * @throws InvalidHorseException
+     */
     public int checkPayout(int horseNumber, int amountOfBet) throws InvalidHorseException {
         int winnings = 0;
         if (winningHorse.getNumber() == horseNumber) {
@@ -61,7 +78,9 @@ public class HorseManager {
         return winnings;
     }
 
-    // !!!!! MAKE THE MANAGERS AN ABSTRACT CLASS?
+    /**
+     * Print out the status of each horse
+     */
     public void printStatus() {
         Output.logOutput(HORSES_TEXT);
         for (Horse horse: horses) {
