@@ -24,6 +24,61 @@ public class InputProcessor {
     }
 
     /**
+     * Handle a restock
+     */
+    private void handleRestockCommand() {
+        inventoryManager.restock();
+    }
+
+    /**
+     * Handle a quit
+     */
+    private void handleQuitCommand() {
+        Main.quit();
+    }
+
+    /**
+     * Validate the input that an int horse number has been provided and call the service
+     * @param winningHorseNumber
+     * @throws InvalidHorseException
+     */
+    private void handleWinnerCommand(String winningHorseNumber) throws InvalidHorseException {
+        try {
+            int horseNumber = Integer.parseInt(winningHorseNumber);
+            horseManager.setWinner(horseNumber);
+        } catch (Exception e) {
+            throw new InvalidHorseException(winningHorseNumber);
+        }
+    }
+
+    /**
+     * Validate the input that an int horse number and bet amount have been provided and call the service
+     * @param horseNumberString
+     * @param betAmountString
+     * @throws InvalidHorseException
+     * @throws InvalidBetException
+     */
+    private void handleCheckBetCommand(String horseNumberString, String betAmountString) throws InvalidHorseException, InvalidBetException {
+        int horseNumber, betAmount;
+
+        try {
+            horseNumber = Integer.parseInt(horseNumberString);
+        } catch (Exception e) {
+            throw new InvalidHorseException(horseNumberString);
+        }
+
+        try {
+            betAmount = Integer.parseInt(betAmountString);
+        } catch (Exception e) {
+            throw new InvalidBetException(betAmountString);
+        }
+
+        int payout = horseManager.checkPayout(horseNumber, betAmount);
+        if (payout > 0)
+            inventoryManager.payout(payout);
+    }
+
+    /**
      * The following commands are valid (not case sensitive):
      * R : Restock
      * Q: Quit
@@ -35,48 +90,36 @@ public class InputProcessor {
      */
     public void processCommand(String input) {
         try {
-            // Restock Command
-            if (RESTOCK_COMMAND.equalsIgnoreCase(input)) {
-                inventoryManager.restock();
-            }
-            // Quit Command
-            else if (QUIT_COMMAND.equalsIgnoreCase(input)) {
-                Main.quit();
-            }
-            // Set Winning Number or Check Bet (or invalid command)
-            else {
-                // Separate the two inputs - throw an exception if this is invalid
-                String[] inputSplit = input.split(" ");
-                if (inputSplit.length != 2)
-                    throw new InvalidCommandException(input);
+            // Split the input string by the whitespace
+            String[] inputSplit = input.split(" ");
 
-                int horse, bet;
-
-                // If the first input is "W", we are setting a winning horse
-                if (SET_WINNER_COMMAND.equalsIgnoreCase(inputSplit[0])) {
-                    try {
-                        horse = Integer.parseInt(inputSplit[1]);
-                    } catch (Exception e) {
-                        throw new InvalidHorseException(inputSplit[1]);
-                    }
-                    horseManager.setWinner(horse);
+            // If the input is a single string, we have a restock or quit case
+            if (inputSplit.length == 1)
+            {
+                if (RESTOCK_COMMAND.equalsIgnoreCase(input)) {
+                    handleRestockCommand();
                 }
-                // Otherwise, we are checking a bet
+                else if (QUIT_COMMAND.equalsIgnoreCase(input)) {
+                    handleQuitCommand();
+                }
                 else {
-                    try {
-                        horse = Integer.parseInt(inputSplit[0]);
-                    } catch (Exception e) {
-                        throw new InvalidHorseException(inputSplit[0]);
-                    }
-                    try {
-                        bet = Integer.parseInt(inputSplit[1]);
-                    } catch (Exception e) {
-                        throw new InvalidBetException(inputSplit[1]);
-                    }
-                    int payout = horseManager.checkPayout(horse, bet);
-                    if (payout > 0)
-                        inventoryManager.payout(payout);
+                    throw new InvalidCommandException(input);
                 }
+            }
+            // If the input is 2 strings, we have a "set winner" or "check bet" case
+            else if (inputSplit.length == 2) {
+                // Set Winner Case
+                if (SET_WINNER_COMMAND.equalsIgnoreCase(inputSplit[0])) {
+                    handleWinnerCommand(inputSplit[1]);
+                }
+                // Check Bet Case
+                else {
+                    handleCheckBetCommand(inputSplit[0], inputSplit[1]);
+                }
+            }
+            // If the input is 3+ strings, we have a bad command
+            else {
+                throw new InvalidCommandException(input);
             }
         }
         catch (HorseTrackInputException e) {

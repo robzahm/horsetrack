@@ -47,8 +47,6 @@ public class CashDenomination {
         return numBillsToDispense * denominationValue;
     }
 
-    // "Commit" the transaction and dispense the bills
-
     /**
      * Dispense the bills that were set in the calculation
      * !! Should this state be offloaded to the service?
