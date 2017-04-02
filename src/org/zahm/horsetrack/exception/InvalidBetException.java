@@ -11,7 +11,7 @@ public class InvalidBetException extends HorseTrackInputException {
     }
 
     @Override
-    public String getMessage() {
+    public String getFormattedMessage() {
         return String.format(formattedMessage, input);
     }
 }
