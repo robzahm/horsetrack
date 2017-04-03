@@ -12,9 +12,9 @@ import java.util.*;
 public class BettingService {
     private static final String HORSES_TEXT = "Horses:";
 
-    // Keep as list?  We want a fast lookup to set the winner, and an ordered list to print
-    // Will assume no duplicate horse numbers
-    // Sorted Map?
+    // We want a fast lookup to set the winner, and an ordered list to print
+    // Will assume no duplicate horse numbers, that we load in sorted order,
+    // and that the horse numbers will correspond to the array index
     private ArrayList<Horse> horses = new ArrayList<Horse>();
 
     // Keep a reference to the winning horse

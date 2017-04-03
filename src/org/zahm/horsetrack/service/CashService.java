@@ -1,9 +1,10 @@
 package org.zahm.horsetrack.service;
 
 import org.zahm.horsetrack.io.Output;
-import org.zahm.horsetrack.model.CashDenomination;
+import org.zahm.horsetrack.model.Cash;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Service class to manage the cash inventory of the machine
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 public class CashService {
     private static final String INVENTORY_TEXT = "Inventory:";
 
-    private ArrayList<CashDenomination> inventory;
+    private ArrayList<Cash> inventory;
 
     public CashService() {
         restock();
@@ -23,12 +24,12 @@ public class CashService {
      * Assume it is okay to lose track of the amount of money in the machine when restocking
      */
     public void restock() {
-        inventory = new ArrayList<CashDenomination>();
-        inventory.add(new CashDenomination(1,10));
-        inventory.add(new CashDenomination(5,10));
-        inventory.add(new CashDenomination(10,10));
-        inventory.add(new CashDenomination(20, 10));
-        inventory.add(new CashDenomination(100, 10));
+        inventory = new ArrayList<Cash>();
+        inventory.add(new Cash(1,10));
+        inventory.add(new Cash(5,10));
+        inventory.add(new Cash(10,10));
+        inventory.add(new Cash(20, 10));
+        inventory.add(new Cash(100, 10));
     }
 
     /**
@@ -37,23 +38,45 @@ public class CashService {
      *
      * Work backwards through the list using the largest bills possible to service the request in order
      * to pay out using the fewest number of bills possible
+     *
+     * Will need to keep track of the dispensed bills so that we can commit or roll back if it turns out that we don't have
+     * the right mix of bills to service the request (method synchronized to prevent concurrent payouts that could lead
+     * to an inconsistent state)
      * @param payoutAmount
      */
-    public void payout(int payoutAmount) {
+    public synchronized void payout(int payoutAmount) {
+        // Variable to track the remaining payout as we put together the bills to dispense
         int remainingPayout = payoutAmount;
 
+        // List to track the number of dispensed bills
+        HashMap<Cash, Integer> billsToDispense = new HashMap<Cash, Integer>();
+
         for (int i = inventory.size()-1; i >= 0; i--) {
-            CashDenomination denomination = inventory.get(i);
-            int amountToDispense = denomination.calculateBillsToDispense(remainingPayout);
+            Cash cash = inventory.get(i);
+
+            // Find the number of bills of this denomination to dispense, and note it in the map
+            int numBillsToDispense = cash.calculateNumBillsToDispense(remainingPayout);
+            billsToDispense.put(cash, numBillsToDispense);
+
+            // Calculate the amount that will be dispensed, and decrease the remaining amount by this value
+            int amountToDispense = numBillsToDispense * cash.getDenomination();
             remainingPayout -= amountToDispense;
+
+            if (remainingPayout == 0)
+                break;
         }
 
         // If we've gotten to the end and the payout amount is 0, "commit" the transaction, dispense the bills,
         // and log the message to the console
         if (remainingPayout == 0) {
             Output.logOutput("Dispensing:");
-            for (CashDenomination denomination:inventory) {
-                denomination.dispenseBills();
+            for (Cash cash:inventory) {
+                int numBillsToDispense = 0;
+                if (billsToDispense.containsKey(cash))
+                    numBillsToDispense =  billsToDispense.get(cash);
+
+                cash.dispenseBills(numBillsToDispense);
+                Output.logOutput(String.format("$%d,%d", cash.getDenomination(), numBillsToDispense));
             }
         }
         // If the remaining amount to be paid out is not 0, we didn't have the right mix of bills
@@ -68,8 +91,8 @@ public class CashService {
      */
     public void printStatus() {
         Output.logOutput(INVENTORY_TEXT);
-        for (CashDenomination denomination: inventory) {
-            denomination.printStatus();
+        for (Cash cash: inventory) {
+            cash.printStatus();
         }
     }
 }
