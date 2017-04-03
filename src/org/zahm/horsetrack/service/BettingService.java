@@ -12,23 +12,22 @@ import java.util.*;
 public class BettingService {
     private static final String HORSES_TEXT = "Horses:";
 
-    // We want a fast lookup to set the winner, and an ordered list to print
-    // Will assume no duplicate horse numbers, that we load in sorted order,
-    // and that the horse numbers will correspond to the array index
-    private ArrayList<Horse> horses = new ArrayList<Horse>();
+    // We want a fast lookup to get the horse by number, and an ordered list to print the status
+    // Will assume no duplicate horse numbers
+    private SortedMap<Integer, Horse> horses = new TreeMap<Integer, Horse>();
 
     // Keep a reference to the winning horse
     private Horse winningHorse;
 
     public BettingService() {
         // Add the horses to the list
-        horses.add(new Horse(1, "That Darn Gray Cat", 5));
-        horses.add(new Horse(2, "Fort Utopia", 10));
-        horses.add(new Horse(3, "Count Sheep", 9));
-        horses.add(new Horse(4, "Ms Traitour", 5));
-        horses.add(new Horse(5, "Real Princess", 3));
-        horses.add(new Horse(6, "Pa Kettle", 5));
-        horses.add(new Horse(7, "Gin Stinger", 6));
+        horses.put(1, new Horse(1, "That Darn Gray Cat", 5));
+        horses.put(2 ,new Horse(2, "Fort Utopia", 10));
+        horses.put(3, new Horse(3, "Count Sheep", 9));
+        horses.put(4, new Horse(4, "Ms Traitour", 5));
+        horses.put(5, new Horse(5, "Real Princess", 3));
+        horses.put(6, new Horse(6, "Pa Kettle", 5));
+        horses.put(7, new Horse(7, "Gin Stinger", 6));
 
         // Default the winner
         winningHorse = horses.get(0);
@@ -36,14 +35,13 @@ public class BettingService {
 
     /**
      * Helper method to return the horse with the given number
-     * !! ASSUMES THE INDEX MATCHES THE HORSE NUMBER
      * @param horseNumber
      * @return
      * @throws InvalidHorseException
      */
     private Horse getHorseWithNumber(int horseNumber) throws InvalidHorseException {
         try {
-            return horses.get(horseNumber-1);
+            return horses.get(horseNumber);
         }
         catch (Exception e) {
             throw new InvalidHorseException(Integer.toString(horseNumber));
@@ -86,7 +84,7 @@ public class BettingService {
      */
     public void printStatus() {
         Output.logOutput(HORSES_TEXT);
-        for (Horse horse: horses) {
+        for (Horse horse: horses.values()) {
             horse.printStatus(winningHorse);
         }
     }
