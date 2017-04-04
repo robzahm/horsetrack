@@ -31,7 +31,7 @@ public class InputProcessor {
 
     private void printStatus() {
         printCashStatusService.printStatus();
-        printHorseStatusService.printHorseStatus();
+        printHorseStatusService.printStatus();
     }
 
     /**

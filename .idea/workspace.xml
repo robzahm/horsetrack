@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0d7b3271-a67a-4d5d-9fd1-5bca81dd157e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/io/Output.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/io/Output.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Cash.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Cash.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Horse.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Horse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashRestockService.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashRestockService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintHorseStatusService.java" afterPath="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintHorseStatusService.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,16 +21,74 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Horse.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/model/Horse.java">
+      <file leaf-file-name="InputProcessor.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+            <state relative-caret-position="204">
+              <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="38" selection-end-column="7" />
               <folding>
-                <element signature="e#854#855#0" expanded="true" />
-                <element signature="e#903#904#0" expanded="true" />
-                <element signature="e#1298#1299#0" expanded="true" />
-                <element signature="e#1332#1333#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PrintHorseStatusService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintHorseStatusService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SetWinnerService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/SetWinnerService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CashRestockService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashRestockService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+              <folding>
+                <element signature="e#296#297#0" expanded="true" />
+                <element signature="e#336#337#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PrintCashStatus.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="47" lean-forward="true" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -91,16 +149,16 @@
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashService.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/CalculatePayoutService.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/SetWinnerService.java" />
-        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashRestockService.java" />
-        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java" />
-        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintHorseStatusService.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/data/HorseDataAccess.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/data/CashDataAccess.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PayoutService.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/io/Output.java" />
-        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Cash.java" />
         <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/model/Horse.java" />
+        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java" />
+        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashRestockService.java" />
+        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintHorseStatusService.java" />
+        <option value="$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java" />
       </list>
     </option>
   </component>
@@ -503,14 +561,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java</url>
-          <line>21</line>
-          <properties />
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager />
@@ -717,71 +767,6 @@
     <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/BettingService.java" />
     <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashService.java" />
     <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/CalculatePayoutService.java" />
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashRestockService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="57" lean-forward="false" selection-start-line="8" selection-start-column="57" selection-end-line="8" selection-end-column="57" />
-          <folding>
-            <element signature="e#379#380#0" expanded="true" />
-            <element signature="e#419#420#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/SetWinnerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="12" lean-forward="false" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintHorseStatusService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="45" lean-forward="false" selection-start-line="24" selection-start-column="45" selection-end-line="24" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PayoutService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
-          <caret line="85" column="58" lean-forward="false" selection-start-line="85" selection-start-column="58" selection-end-line="85" selection-end-column="58" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-170">
-          <caret line="20" column="75" lean-forward="true" selection-start-line="20" selection-start-column="75" selection-end-line="20" selection-end-column="75" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="57" lean-forward="false" selection-start-line="20" selection-start-column="57" selection-end-line="20" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/data/HorseDataAccess.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -878,6 +863,77 @@
             <element signature="e#903#904#0" expanded="true" />
             <element signature="e#1298#1299#0" expanded="true" />
             <element signature="e#1332#1333#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PayoutService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="73" column="28" lean-forward="false" selection-start-line="73" selection-start-column="28" selection-end-line="73" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintCashStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="47" lean-forward="true" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/SetWinnerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="3" lean-forward="true" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/CashRestockService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="26" lean-forward="false" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding>
+            <element signature="e#296#297#0" expanded="true" />
+            <element signature="e#336#337#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/service/PrintHorseStatusService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="21" lean-forward="false" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/zahm/horsetrack/io/InputProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="38" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -13,9 +13,6 @@ public class PrintCashStatus {
     private CashDataAccess cashDataAccess = CashDataAccess.getInstance();
     private Output output = new Output();
 
-    /**
-     * Print the status of the cash inventory
-     */
     public void printStatus() {
         output.logOutput(INVENTORY_TEXT);
         for (Cash cash: cashDataAccess.getCashInventory()) {

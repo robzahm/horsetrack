@@ -10,14 +10,10 @@ import org.zahm.horsetrack.model.Horse;
 public class PrintHorseStatusService {
     private static final String HORSES_TEXT = "Horses:";
 
-
     private HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
     private Output output = new Output();
 
-    /**
-     * Print out the status of each horse
-     */
-    public void printHorseStatus() {
+    public void printStatus() {
         output.logOutput(HORSES_TEXT);
 
         Horse winningHorse = horseDataAccess.getWinningHorse();
