@@ -104,6 +104,10 @@ public class InputProcessor {
      */
     public void processCommand(String input) {
         try {
+            // If a blank line was entered, return as we should ignore these commands (and assume we should not print
+            // the status)
+                return;
+
             // Split the input string by the whitespace
             String[] inputSplit = input.split(" ");
 
