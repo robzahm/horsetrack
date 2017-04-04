@@ -46,12 +46,7 @@ public class HorseDataAccess {
      * @throws InvalidHorseException
      */
     public Horse findHorseWithNumber(int horseNumber) throws InvalidHorseException {
-        try {
-            return horses.get(horseNumber);
-        }
-        catch (Exception e) {
-            throw new InvalidHorseException(Integer.toString(horseNumber));
-        }
+        return horses.get(horseNumber);
     }
 
     /**

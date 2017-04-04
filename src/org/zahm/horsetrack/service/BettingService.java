@@ -62,6 +62,10 @@ public class BettingService {
      */
     public void setWinningHorseByNumber(int winningHorse) throws InvalidHorseException {
         Horse newWinner = HorseDataAccess.getInstance().findHorseWithNumber(winningHorse);
+        if (newWinner == null) {
+            throw new InvalidHorseException(Integer.toString(winningHorse));
+        }
+
         HorseDataAccess.getInstance().setWinningHorse(newWinner);
     }
 
