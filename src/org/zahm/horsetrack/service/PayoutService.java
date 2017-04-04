@@ -14,6 +14,31 @@ import java.util.HashMap;
  */
 public class PayoutService {
     private static CashDataAccess cashDataAccess = CashDataAccess.getInstance();
+    private static HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
+
+    /**
+     * Returns the payout of a horse if it is the winning horse (else 0)
+     *
+     * Assuming that we would have a practical limit on the allowable bet/odds and do not need to consider
+     * a case where this overflows the int value
+     * @param horseNumber
+     * @param amountOfBet
+     * @return
+     * @throws InvalidHorseException
+     */
+    private static int calculatePayout(int horseNumber, int amountOfBet) throws InvalidHorseException {
+        Horse winningHorse = horseDataAccess.getWinningHorse();
+        int winnings = 0;
+
+        if (winningHorse.getNumber() == horseNumber) {
+            winnings = winningHorse.calculatePayout(amountOfBet);
+            Output.logOutput(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
+        } else {
+            Output.logOutput(String.format("No Payout: %s", horseDataAccess.findHorseWithNumber(horseNumber).getName()));
+        }
+
+        return winnings;
+    }
 
     /**
      * Performs the payout if the machine can service the request, otherwise an insufficient funds
@@ -25,9 +50,13 @@ public class PayoutService {
      * Will need to keep track of the dispensed bills so that we can commit or roll back if it turns out that we don't have
      * the right mix of bills to service the request (method synchronized to prevent concurrent payouts that could lead
      * to an inconsistent state)
-     * @param payoutAmount
      */
-    public static synchronized void payout(int payoutAmount) {
+    public static synchronized void payout(int horseNumber, int amountOfBet) throws InvalidHorseException {
+        // Calculate the payout, and return if there is none
+        int payoutAmount = calculatePayout(horseNumber, amountOfBet);
+        if (payoutAmount == 0)
+            return;
+
         // Variable to track the remaining payout as we put together the bills to dispense
         int remainingPayout = payoutAmount;
 

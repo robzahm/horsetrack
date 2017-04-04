@@ -80,10 +80,7 @@ public class InputProcessor {
             throw new InvalidBetException(betAmountString);
         }
 
-        // !! COMBINE THESE INTO ONE PAYOUT SERVICE
-        int payout = CalculatePayoutService.calculatePayout(horseNumber, betAmount);
-        if (payout > 0)
-            PayoutService.payout(payout);
+        PayoutService.payout(horseNumber, betAmount);
     }
 
     /**
