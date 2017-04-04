@@ -106,6 +106,7 @@ public class InputProcessor {
         try {
             // If a blank line was entered, return as we should ignore these commands (and assume we should not print
             // the status)
+            if (input.trim().equals(""))
                 return;
 
             // Split the input string by the whitespace

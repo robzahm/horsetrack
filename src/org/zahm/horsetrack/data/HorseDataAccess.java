@@ -32,7 +32,7 @@ public class HorseDataAccess {
         horses.put(7, new Horse(7, "Gin Stinger", 6));
 
         // Default the winner
-        winningHorse = horses.get(0);
+        winningHorse = horses.get(horses.firstKey());
     }
 
     public static HorseDataAccess getInstance() {
