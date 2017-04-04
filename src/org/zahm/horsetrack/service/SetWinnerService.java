@@ -8,7 +8,7 @@ import org.zahm.horsetrack.model.Horse;
  * Created by Zahm Robert on 4/3/2017.
  */
 public class SetWinnerService {
-    private static HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
+    private HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
 
     /**
      * Sets the winning horse to the horse with the passed-in number, and throws an Exception if it
@@ -16,7 +16,7 @@ public class SetWinnerService {
      * @param winningHorse
      * @throws InvalidHorseException
      */
-    public static void setWinningHorseByNumber(int winningHorse) throws InvalidHorseException {
+    public void setWinningHorseByNumber(int winningHorse) throws InvalidHorseException {
         Horse newWinner = horseDataAccess.findHorseWithNumber(winningHorse);
         if (newWinner == null) {
             throw new InvalidHorseException(Integer.toString(winningHorse));

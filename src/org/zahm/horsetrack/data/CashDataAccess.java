@@ -8,7 +8,7 @@ import java.util.Collections;
 
 /**
  * Class to manage the state of the horses in lieu of a database
- * Singleton class for simplicity
+ * Singleton class for simplicity of state maintenance
  */
 public class CashDataAccess {
     private static CashDataAccess instance = new CashDataAccess();

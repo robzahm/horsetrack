@@ -12,14 +12,14 @@ public class PrintHorseStatusService {
     private static final String WON = "won";
     private static final String LOST = "lost";
 
-    private static HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
+    private HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
 
     /**
      * Helper method used to log the winning/losing status message
      * @param winningHorse
      * @return
      */
-    private static String printIsWinner(Horse theHorse, Horse winningHorse) {
+    private String printIsWinner(Horse theHorse, Horse winningHorse) {
         if (theHorse.equals(winningHorse))
             return WON;
         else
@@ -29,7 +29,7 @@ public class PrintHorseStatusService {
     /**
      * Print out the status of each horse
      */
-    public static void printHorseStatus() {
+    public void printHorseStatus() {
         Output.logOutput(HORSES_TEXT);
 
         Horse winningHorse = horseDataAccess.getWinningHorse();

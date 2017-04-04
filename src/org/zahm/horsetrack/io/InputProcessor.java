@@ -15,21 +15,28 @@ public class InputProcessor {
     private static final String QUIT_COMMAND = "Q";
     private static final String SET_WINNER_COMMAND = "W";
 
+    // Available services
+    private CashRestockService cashRestockService = new CashRestockService();
+    private PayoutService payoutServiceService = new PayoutService();
+    private PrintCashStatus printCashStatusService = new PrintCashStatus();
+    private PrintHorseStatusService printHorseStatusService = new PrintHorseStatusService();
+    private SetWinnerService setWinnerService = new SetWinnerService();
+
     public InputProcessor() {
         // Print status on startup
         printStatus();
     }
 
     private void printStatus() {
-        PrintCashStatus.printStatus();
-        PrintHorseStatusService.printHorseStatus();
+        printCashStatusService.printStatus();
+        printHorseStatusService.printHorseStatus();
     }
 
     /**
      * Handle a restock
      */
     private void handleRestockCommand() {
-        CashRestockService.restock();
+        new CashRestockService().restock();
     }
 
     /**
@@ -47,7 +54,7 @@ public class InputProcessor {
     private void handleWinnerCommand(String winningHorseNumber) throws InvalidHorseException {
         try {
             int horseNumber = Integer.parseInt(winningHorseNumber);
-            SetWinnerService.setWinningHorseByNumber(horseNumber);
+            new SetWinnerService().setWinningHorseByNumber(horseNumber);
         } catch (Exception e) {
             throw new InvalidHorseException(winningHorseNumber);
         }
@@ -80,7 +87,7 @@ public class InputProcessor {
             throw new InvalidBetException(betAmountString);
         }
 
-        PayoutService.payout(horseNumber, betAmount);
+        payoutServiceService.payout(horseNumber, betAmount);
     }
 
     /**

@@ -13,8 +13,8 @@ import java.util.HashMap;
  * Created by Zahm Robert on 4/3/2017.
  */
 public class PayoutService {
-    private static CashDataAccess cashDataAccess = CashDataAccess.getInstance();
-    private static HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
+    private CashDataAccess cashDataAccess = CashDataAccess.getInstance();
+    private HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
 
     /**
      * Returns the payout of a horse if it is the winning horse (else 0)
@@ -26,7 +26,7 @@ public class PayoutService {
      * @return
      * @throws InvalidHorseException
      */
-    private static int calculatePayout(int horseNumber, int amountOfBet) throws InvalidHorseException {
+    private int calculatePayout(int horseNumber, int amountOfBet) throws InvalidHorseException {
         Horse winningHorse = horseDataAccess.getWinningHorse();
         int winnings = 0;
 
@@ -51,7 +51,7 @@ public class PayoutService {
      * the right mix of bills to service the request (method synchronized to prevent concurrent payouts that could lead
      * to an inconsistent state)
      */
-    public static synchronized void payout(int horseNumber, int amountOfBet) throws InvalidHorseException {
+    public synchronized void payout(int horseNumber, int amountOfBet) throws InvalidHorseException {
         // Calculate the payout, and return if there is none
         int payoutAmount = calculatePayout(horseNumber, amountOfBet);
         if (payoutAmount == 0)

@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 /**
  * Class to manage the state of the horses in lieu of a database
- * Singleton class for simplicity
+ * Singleton class for simplicity of state maintenance
  */
 public class HorseDataAccess {
     private static HorseDataAccess instance = new HorseDataAccess();

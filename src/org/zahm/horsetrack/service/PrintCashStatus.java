@@ -10,12 +10,12 @@ import org.zahm.horsetrack.model.Cash;
 public class PrintCashStatus {
     private static final String INVENTORY_TEXT = "Inventory:";
 
-    private static CashDataAccess cashDataAccess = CashDataAccess.getInstance();
+    private CashDataAccess cashDataAccess = CashDataAccess.getInstance();
 
     /**
      * Print the status of the cash inventory
      */
-    public static void printStatus() {
+    public void printStatus() {
         Output.logOutput(INVENTORY_TEXT);
         for (Cash cash: cashDataAccess.getOrderedCashInventory()) {
             cash.printStatus();
