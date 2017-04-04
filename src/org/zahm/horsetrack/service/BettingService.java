@@ -1,5 +1,6 @@
 package org.zahm.horsetrack.service;
 
+import org.zahm.horsetrack.data.HorseDataAccess;
 import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.Horse;
@@ -7,54 +8,28 @@ import org.zahm.horsetrack.model.Horse;
 import java.util.*;
 
 /**
- * Service class for the Horses and Betting
+ * Business logic class for the Horses and Betting
+ * (each method could be separated into individual classes for further separation of concerns)
  */
 public class BettingService {
     private static final String HORSES_TEXT = "Horses:";
-
-    // We want a fast lookup to get the horse by number, and an ordered list to print the status
-    // Will assume no duplicate horse numbers
-    private SortedMap<Integer, Horse> horses = new TreeMap<Integer, Horse>();
-
-    // Keep a reference to the winning horse
-    private Horse winningHorse;
+    private static final String WON = "won";
+    private static final String LOST = "lost";
 
     public BettingService() {
-        // Add the horses to the list
-        horses.put(1, new Horse(1, "That Darn Gray Cat", 5));
-        horses.put(2 ,new Horse(2, "Fort Utopia", 10));
-        horses.put(3, new Horse(3, "Count Sheep", 9));
-        horses.put(4, new Horse(4, "Ms Traitour", 5));
-        horses.put(5, new Horse(5, "Real Princess", 3));
-        horses.put(6, new Horse(6, "Pa Kettle", 5));
-        horses.put(7, new Horse(7, "Gin Stinger", 6));
 
-        // Default the winner
-        winningHorse = horses.get(0);
     }
 
     /**
-     * Helper method to return the horse with the given number
-     * @param horseNumber
+     * Helper method used to log the winning/losing status message
+     * @param winningHorse
      * @return
-     * @throws InvalidHorseException
      */
-    private Horse getHorseWithNumber(int horseNumber) throws InvalidHorseException {
-        try {
-            return horses.get(horseNumber);
-        }
-        catch (Exception e) {
-            throw new InvalidHorseException(Integer.toString(horseNumber));
-        }
-    }
-
-    /**
-     * Sets the winning horse
-     * @param winner
-     * @throws InvalidHorseException
-     */
-    public void setWinner (int winner) throws InvalidHorseException {
-        winningHorse = getHorseWithNumber(winner);
+    private String printIsWinner(Horse theHorse, Horse winningHorse) {
+        if (theHorse.equals(winningHorse))
+            return WON;
+        else
+            return LOST;
     }
 
     /**
@@ -68,15 +43,28 @@ public class BettingService {
      * @throws InvalidHorseException
      */
     public int calculatePayout(int horseNumber, int amountOfBet) throws InvalidHorseException {
+        Horse winningHorse = HorseDataAccess.getInstance().getWinningHorse();
         int winnings = 0;
+
         if (winningHorse.getNumber() == horseNumber) {
             winnings = winningHorse.getOdds() * amountOfBet;
             Output.logOutput(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
         } else {
-            Output.logOutput(String.format("No Payout: %s", getHorseWithNumber(horseNumber).getName()));
+            Output.logOutput(String.format("No Payout: %s", HorseDataAccess.getInstance().findHorseWithNumber(horseNumber).getName()));
         }
 
         return winnings;
+    }
+
+    /**
+     * Sets the winning horse to the horse with the passed-in number, and throws an Exception if it
+     * cannot be found
+     * @param winningHorse
+     * @throws InvalidHorseException
+     */
+    public void setWinningHorseByNumber(int winningHorse) throws InvalidHorseException {
+        Horse newWinner = HorseDataAccess.getInstance().findHorseWithNumber(winningHorse);
+        HorseDataAccess.getInstance().setWinningHorse(newWinner);
     }
 
     /**
@@ -84,8 +72,13 @@ public class BettingService {
      */
     public void printStatus() {
         Output.logOutput(HORSES_TEXT);
-        for (Horse horse: horses.values()) {
-            horse.printStatus(winningHorse);
+
+        Horse winningHorse = HorseDataAccess.getInstance().getWinningHorse();
+
+        for (Horse horse: HorseDataAccess.getInstance().getHorses()) {
+
+            Output.logOutput(String.format("%d,%s,%d,%s",
+                    horse.getNumber(), horse.getName(), horse.getOdds(), printIsWinner(horse, winningHorse)));
         }
     }
 }

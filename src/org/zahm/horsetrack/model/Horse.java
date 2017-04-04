@@ -6,8 +6,7 @@ import org.zahm.horsetrack.io.Output;
  * Domain object that stores the properties of the Horse
  */
 public class Horse {
-    private static final String WON = "won";
-    private static final String LOST = "lost";
+
 
     private int number;
     private String name;
@@ -17,27 +16,6 @@ public class Horse {
         this.setNumber(number);
         this.setName(name);
         this.setOdds(odds);
-    }
-
-    /**
-     * Helper method used to log the winning/losing status message
-     * @param winningHorse
-     * @return
-     */
-    private String printIsWinner(Horse winningHorse) {
-        if (this.equals(winningHorse))
-            return WON;
-        else
-            return LOST;
-    }
-
-    /**
-     * Logs the status of this horse, including whether or not it is the winner
-     * @param winningHorse
-     */
-    public void printStatus(Horse winningHorse) {
-        Output.logOutput(String.format("%d,%s,%d,%s",
-                getNumber(), getName(), getOdds(), printIsWinner(winningHorse)));
     }
 
     // Use the horse number for equals, and set it as the hashcode value as well

@@ -45,7 +45,7 @@ public class InputProcessor {
     private void handleWinnerCommand(String winningHorseNumber) throws InvalidHorseException {
         try {
             int horseNumber = Integer.parseInt(winningHorseNumber);
-            horseManager.setWinner(horseNumber);
+            horseManager.setWinningHorseByNumber(horseNumber);
         } catch (Exception e) {
             throw new InvalidHorseException(winningHorseNumber);
         }
