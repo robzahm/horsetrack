@@ -3,9 +3,7 @@ package org.zahm.horsetrack.data;
 import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.model.Horse;
 
-import java.util.Collection;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Class to manage the state of the horses in lieu of a database
@@ -14,63 +12,52 @@ import java.util.TreeMap;
 public class HorseDataAccess {
     private static HorseDataAccess instance = new HorseDataAccess();
 
-    // We want a fast lookup to get the horse by number, and an ordered list to print the status
-    // Will assume no duplicate horse numbers
-    private SortedMap<Integer, Horse> horses = new TreeMap<Integer, Horse>();
+    public static HorseDataAccess getInstance() {
+        return HorseDataAccess.instance;
+    }
+
+    // Keep an ordered list of horses, and an index for fast lookup
+    private ArrayList<Horse> horses = new ArrayList<Horse>();
+    private HashMap<Integer, Integer> horseIndex = new HashMap<Integer, Integer>();
 
     // Keep a reference to the winning horse
     private Horse winningHorse;
 
     protected HorseDataAccess() {
-        // Add the horses to the list
-        horses.put(1, new Horse(1, "That Darn Gray Cat", 5));
-        horses.put(2 ,new Horse(2, "Fort Utopia", 10));
-        horses.put(3, new Horse(3, "Count Sheep", 9));
-        horses.put(4, new Horse(4, "Ms Traitour", 5));
-        horses.put(5, new Horse(5, "Real Princess", 3));
-        horses.put(6, new Horse(6, "Pa Kettle", 5));
-        horses.put(7, new Horse(7, "Gin Stinger", 6));
+        // Add the horses to the list, assuming sorted order
+        addHorse(new Horse(1, "That Darn Gray Cat", 5));
+        addHorse(new Horse(2, "Fort Utopia", 10));
+        addHorse(new Horse(3, "Count Sheep", 9));
+        addHorse(new Horse(4, "Ms Traitour", 5));
+        addHorse(new Horse(5, "Real Princess", 3));
+        addHorse(new Horse(6, "Pa Kettle", 5));
+        addHorse(new Horse(7, "Gin Stinger", 6));
 
         // Default the winner
-        winningHorse = horses.get(horses.firstKey());
+        winningHorse = horses.get(0);
     }
 
-    public static HorseDataAccess getInstance() {
-        return HorseDataAccess.instance;
+    // Add horse to the arraylist and index
+    private void addHorse(Horse horse) {
+        horses.add(horse);
+        horseIndex.put(horse.getNumber(), horses.size()-1);
     }
 
-    /**
-     * Method to return the horse with the given number
-     * @param horseNumber
-     * @return
-     * @throws InvalidHorseException
-     */
     public Horse findHorseWithNumber(int horseNumber) throws InvalidHorseException {
-        return horses.get(horseNumber);
+        return horses.get(horseIndex.get(horseNumber));
     }
 
-    /**
-     * Sets the winning horse
-     * @param newWinner
-     * @throws InvalidHorseException
-     */
     public void setWinningHorse (Horse newWinner) {
         winningHorse = newWinner;
     }
 
-    /**
-     * Returns the winning horse
-     * @throws InvalidHorseException
-     */
     public Horse getWinningHorse () {
         return winningHorse;
     }
 
-    /**
-     * Returns a collection of horses
-     * @return
-     */
-    public Collection<Horse> getHorses() {
-        return horses.values();
+    public List<Horse> getHorses() {
+        return horses;
     }
 }
+
+

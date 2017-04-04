@@ -64,8 +64,8 @@ public class PayoutService {
         // List to track the number of dispensed bills
         HashMap<Cash, Integer> billsToDispense = new HashMap<Cash, Integer>();
 
-        for (int i = cashDataAccess.getOrderedCashInventory().size()-1; i >= 0; i--) {
-            Cash cash = cashDataAccess.getOrderedCashInventory().get(i);
+        for (int i = cashDataAccess.getCashInventory().size()-1; i >= 0; i--) {
+            Cash cash = cashDataAccess.getCashInventory().get(i);
 
             // Find the number of bills of this denomination to dispense, and note it in the map
             int numBillsToDispense = cash.calculateNumBillsToDispense(remainingPayout);
@@ -83,7 +83,7 @@ public class PayoutService {
         // and log the message to the console
         if (remainingPayout == 0) {
             output.logOutput("Dispensing:");
-            for (Cash cash:cashDataAccess.getOrderedCashInventory()) {
+            for (Cash cash:cashDataAccess.getCashInventory()) {
                 int numBillsToDispense = 0;
                 if (billsToDispense.containsKey(cash))
                     numBillsToDispense =  billsToDispense.get(cash);
