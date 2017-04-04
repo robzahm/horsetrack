@@ -19,9 +19,17 @@ public class InputProcessor {
     private CashService inventoryManager;
     private BettingService horseManager;
 
-    public InputProcessor(CashService theInventoryManager , BettingService theHorseManager) {
-        this.inventoryManager = theInventoryManager;
-        this.horseManager = theHorseManager;
+    public InputProcessor() {
+        this.inventoryManager = new CashService();
+        this.horseManager = new BettingService();
+
+        // Print status on startup
+        printStatus();
+    }
+
+    private void printStatus() {
+        this.inventoryManager.printStatus();
+        this.horseManager.printStatus();
     }
 
     /**
@@ -134,5 +142,8 @@ public class InputProcessor {
         catch (Exception e) {
             Output.logOutput(String.format("Unexpected error: %s", e.getMessage()));
         }
+
+        // Print the status after processing each command
+        printStatus();
     }
 }
