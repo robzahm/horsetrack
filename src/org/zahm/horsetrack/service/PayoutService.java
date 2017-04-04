@@ -1,30 +1,19 @@
 package org.zahm.horsetrack.service;
 
 import org.zahm.horsetrack.data.CashDataAccess;
+import org.zahm.horsetrack.data.HorseDataAccess;
+import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.Cash;
+import org.zahm.horsetrack.model.Horse;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Service class to manage the cash inventory of the machine
+ * Created by Zahm Robert on 4/3/2017.
  */
-public class CashService {
-    private static final String INVENTORY_TEXT = "Inventory:";
-
-    public CashService() {    }
-
-    /**
-     * Restocks the cash inventory
-     */
-    public void restock() {
-        CashDataAccess.getInstance().restock();
-    }
-
-    private ArrayList<Cash> getOrderedCashInventory() {
-        return CashDataAccess.getInstance().getOrderedCashInventory();
-    }
+public class PayoutService {
+    private static CashDataAccess cashDataAccess = CashDataAccess.getInstance();
 
     /**
      * Performs the payout if the machine can service the request, otherwise an insufficient funds
@@ -38,15 +27,15 @@ public class CashService {
      * to an inconsistent state)
      * @param payoutAmount
      */
-    public synchronized void payout(int payoutAmount) {
+    public static synchronized void payout(int payoutAmount) {
         // Variable to track the remaining payout as we put together the bills to dispense
         int remainingPayout = payoutAmount;
 
         // List to track the number of dispensed bills
         HashMap<Cash, Integer> billsToDispense = new HashMap<Cash, Integer>();
 
-        for (int i = getOrderedCashInventory().size()-1; i >= 0; i--) {
-            Cash cash = getOrderedCashInventory().get(i);
+        for (int i = cashDataAccess.getOrderedCashInventory().size()-1; i >= 0; i--) {
+            Cash cash = cashDataAccess.getOrderedCashInventory().get(i);
 
             // Find the number of bills of this denomination to dispense, and note it in the map
             int numBillsToDispense = cash.calculateNumBillsToDispense(remainingPayout);
@@ -64,7 +53,7 @@ public class CashService {
         // and log the message to the console
         if (remainingPayout == 0) {
             Output.logOutput("Dispensing:");
-            for (Cash cash:getOrderedCashInventory()) {
+            for (Cash cash:cashDataAccess.getOrderedCashInventory()) {
                 int numBillsToDispense = 0;
                 if (billsToDispense.containsKey(cash))
                     numBillsToDispense =  billsToDispense.get(cash);
@@ -77,16 +66,6 @@ public class CashService {
         // to service this request
         else {
             Output.logOutput(String.format("Insufficient Funds: %d", payoutAmount));
-        }
-    }
-
-    /**
-     * Print the status of the cash inventory
-     */
-    public void printStatus() {
-        Output.logOutput(INVENTORY_TEXT);
-        for (Cash cash: getOrderedCashInventory()) {
-            cash.printStatus();
         }
     }
 }

@@ -5,8 +5,7 @@ import org.zahm.horsetrack.exception.HorseTrackInputException;
 import org.zahm.horsetrack.exception.InvalidBetException;
 import org.zahm.horsetrack.exception.InvalidCommandException;
 import org.zahm.horsetrack.exception.InvalidHorseException;
-import org.zahm.horsetrack.service.BettingService;
-import org.zahm.horsetrack.service.CashService;
+import org.zahm.horsetrack.service.*;
 
 /**
  * Class to handle the user input
@@ -16,27 +15,21 @@ public class InputProcessor {
     private static final String QUIT_COMMAND = "Q";
     private static final String SET_WINNER_COMMAND = "W";
 
-    private CashService inventoryManager;
-    private BettingService horseManager;
-
     public InputProcessor() {
-        this.inventoryManager = new CashService();
-        this.horseManager = new BettingService();
-
         // Print status on startup
         printStatus();
     }
 
     private void printStatus() {
-        this.inventoryManager.printStatus();
-        this.horseManager.printStatus();
+        PrintCashStatus.printStatus();
+        PrintHorseStatusService.printHorseStatus();
     }
 
     /**
      * Handle a restock
      */
     private void handleRestockCommand() {
-        inventoryManager.restock();
+        CashRestockService.restock();
     }
 
     /**
@@ -54,7 +47,7 @@ public class InputProcessor {
     private void handleWinnerCommand(String winningHorseNumber) throws InvalidHorseException {
         try {
             int horseNumber = Integer.parseInt(winningHorseNumber);
-            horseManager.setWinningHorseByNumber(horseNumber);
+            SetWinnerService.setWinningHorseByNumber(horseNumber);
         } catch (Exception e) {
             throw new InvalidHorseException(winningHorseNumber);
         }
@@ -87,9 +80,10 @@ public class InputProcessor {
             throw new InvalidBetException(betAmountString);
         }
 
-        int payout = horseManager.calculatePayout(horseNumber, betAmount);
+        // !! COMBINE THESE INTO ONE PAYOUT SERVICE
+        int payout = CalculatePayoutService.calculatePayout(horseNumber, betAmount);
         if (payout > 0)
-            inventoryManager.payout(payout);
+            PayoutService.payout(payout);
     }
 
     /**
