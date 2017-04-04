@@ -45,7 +45,7 @@ public class BettingService {
         int winnings = 0;
 
         if (winningHorse.getNumber() == horseNumber) {
-            winnings = winningHorse.getOdds() * amountOfBet;
+            winnings = winningHorse.calculatePayout(amountOfBet);
             Output.logOutput(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
         } else {
             Output.logOutput(String.format("No Payout: %s", HorseDataAccess.getInstance().findHorseWithNumber(horseNumber).getName()));

@@ -16,6 +16,15 @@ public class Horse {
         this.setOdds(odds);
     }
 
+    /**
+     * Calculate the payout should this horse win
+     * @param betAmount
+     * @return
+     */
+    public int calculatePayout(int betAmount) {
+        return this.getOdds() * betAmount;
+    }
+
     // Use the horse number for equals, and set it as the hashcode value as well
 
     @Override
