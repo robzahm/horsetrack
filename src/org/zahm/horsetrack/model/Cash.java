@@ -1,11 +1,9 @@
 package org.zahm.horsetrack.model;
 
-import org.zahm.horsetrack.io.Output;
-
 /**
  * Domain object for a specific cash denomination
  */
-public class Cash implements Comparable<Cash> {
+public class Cash {
     // Value of this cash denomination (e.g., $1, $5, etc.)
     private int denomination;
 
@@ -17,18 +15,12 @@ public class Cash implements Comparable<Cash> {
         this.setNumBills(theNumBills);
     }
 
-    /**
-     * Returns a string representation of the status
-     */
+    // Returns a string representation of the status
     public String getStatus() {
         return String.format("$%d,%d",getDenomination(), getNumBills());
     }
 
-    /**
-     * Returns the number of bills of this denomination that will be dispensed to service the payout
-     * @param amount
-     * @return
-     */
+    // Returns the number of bills of this denomination that will be dispensed to service the payout
     public int calculateNumBillsToDispense(int amount) {
         // Determine the theoretical number of bills of this denomination that can service the request
         int numBillsToDispense = Math.floorDiv(amount, denomination);
@@ -38,20 +30,9 @@ public class Cash implements Comparable<Cash> {
         return Math.min(numBillsToDispense, numBills);
     }
 
-    /**
-     * Dispense the bills that were set in the calculation
-     */
+    // Dispense the bills
     public void dispenseBills(int numBillsToDispense) {
         this.numBills -= numBillsToDispense;
-    }
-
-    /**
-     * Denomination-based sort
-     * @param otherCash
-     * @return
-     */
-    public int compareTo(Cash otherCash) {
-        return this.getDenomination() - otherCash.getDenomination();
     }
 
     public int getDenomination() {

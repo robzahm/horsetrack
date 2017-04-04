@@ -17,11 +17,7 @@ public class Horse {
         this.setOdds(odds);
     }
 
-    /**
-     * Returns a string representation of the status
-     * @param winningHorse
-     * @return
-     */
+    // Returns a string representation of the status
     public String getStatus(Horse winningHorse) {
         String winnerText = LOST;
         if (this.equals(winningHorse))
@@ -31,11 +27,7 @@ public class Horse {
                 getNumber(), getName(), getOdds(), winnerText);
     }
 
-    /**
-     * Calculate the payout should this horse win
-     * @param betAmount
-     * @return
-     */
+    // Calculate the payout should this horse win
     public int calculatePayout(int betAmount) {
         return this.getOdds() * betAmount;
     }

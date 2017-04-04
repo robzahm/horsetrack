@@ -5,11 +5,6 @@ package org.zahm.horsetrack.io;
  */
 public class Output {
 
-    /**
-     * Static method to log the output
-     * Writes to standard out
-     * @param message
-     */
     public void logOutput(String message) {
         System.out.println(message);
     }

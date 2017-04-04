@@ -18,7 +18,7 @@ public class PrintCashStatus {
      */
     public void printStatus() {
         output.logOutput(INVENTORY_TEXT);
-        for (Cash cash: cashDataAccess.getOrderedCashInventory()) {
+        for (Cash cash: cashDataAccess.getCashInventory()) {
             output.logOutput(cash.getStatus());
         }
     }
