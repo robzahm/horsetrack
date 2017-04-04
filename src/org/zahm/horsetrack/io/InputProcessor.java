@@ -140,6 +140,9 @@ public class InputProcessor {
             else {
                 throw new InvalidCommandException(input);
             }
+
+            // Print the status after processing each successful command
+            printStatus();
         }
         catch (HorseTrackInputException e) {
             output.logOutput(e.getFormattedMessage());
@@ -147,8 +150,5 @@ public class InputProcessor {
         catch (Exception e) {
             output.logOutput(String.format("Unexpected error: %s", e.getMessage()));
         }
-
-        // Print the status after processing each command
-        printStatus();
     }
 }
