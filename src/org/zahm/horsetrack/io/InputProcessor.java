@@ -81,7 +81,7 @@ public class InputProcessor {
         try {
             betAmount = Integer.parseInt(betAmountString);
 
-            // Validate that the bet amount is > 0
+            // Validate that the bet amount is >= 0 (assume we should win but pay out $0)
             if (betAmount < 0)
                 throw new InvalidBetException(betAmountString);
 
