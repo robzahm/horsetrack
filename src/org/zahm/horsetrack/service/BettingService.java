@@ -5,8 +5,6 @@ import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.Horse;
 
-import java.util.*;
-
 /**
  * Business logic class for the Horses and Betting
  * (each method could be separated into individual classes for further separation of concerns)

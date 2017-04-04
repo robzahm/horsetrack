@@ -1,8 +1,9 @@
 package org.zahm.horsetrack.io;
 
-import org.zahm.horsetrack.exception.*;
-import org.zahm.horsetrack.exception.InvalidBetException;
 import org.zahm.horsetrack.Main;
+import org.zahm.horsetrack.exception.HorseTrackInputException;
+import org.zahm.horsetrack.exception.InvalidBetException;
+import org.zahm.horsetrack.exception.InvalidCommandException;
 import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.service.BettingService;
 import org.zahm.horsetrack.service.CashService;

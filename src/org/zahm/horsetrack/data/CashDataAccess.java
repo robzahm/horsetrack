@@ -3,7 +3,6 @@ package org.zahm.horsetrack.data;
 import org.zahm.horsetrack.model.Cash;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 

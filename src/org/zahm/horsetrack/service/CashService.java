@@ -5,7 +5,6 @@ import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.Cash;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 /**
