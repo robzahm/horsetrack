@@ -1,7 +1,5 @@
 package org.zahm.horsetrack.model;
 
-import org.zahm.horsetrack.io.Output;
-
 /**
  * Domain object that stores the properties of the Horse
  */

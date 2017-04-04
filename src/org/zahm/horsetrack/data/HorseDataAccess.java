@@ -36,7 +36,7 @@ public class HorseDataAccess {
     }
 
     public static HorseDataAccess getInstance() {
-        return instance;
+        return HorseDataAccess.instance;
     }
 
     /**

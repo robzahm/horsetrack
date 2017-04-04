@@ -5,7 +5,7 @@ import org.zahm.horsetrack.io.Output;
 /**
  * Domain object for a specific cash denomination
  */
-public class Cash {
+public class Cash implements Comparable<Cash> {
     // Value of this cash denomination (e.g., $1, $5, etc.)
     private int denomination;
 
@@ -46,6 +46,14 @@ public class Cash {
         this.numBills -= numBillsToDispense;
     }
 
+    /**
+     * Denomination-based sort
+     * @param otherCash
+     * @return
+     */
+    public int compareTo(Cash otherCash) {
+        return this.getDenomination() - otherCash.getDenomination();
+    }
 
     public int getDenomination() {
         return denomination;

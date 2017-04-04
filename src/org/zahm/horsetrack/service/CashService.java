@@ -1,9 +1,11 @@
 package org.zahm.horsetrack.service;
 
+import org.zahm.horsetrack.data.CashDataAccess;
 import org.zahm.horsetrack.io.Output;
 import org.zahm.horsetrack.model.Cash;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -12,24 +14,17 @@ import java.util.HashMap;
 public class CashService {
     private static final String INVENTORY_TEXT = "Inventory:";
 
-    private ArrayList<Cash> inventory;
-
-    public CashService() {
-        restock();
-    }
+    public CashService() {    }
 
     /**
-     * Resets the cash inventory to its initial amount
-     *
-     * Assume it is okay to lose track of the amount of money in the machine when restocking
+     * Restocks the cash inventory
      */
     public void restock() {
-        inventory = new ArrayList<Cash>();
-        inventory.add(new Cash(1,10));
-        inventory.add(new Cash(5,10));
-        inventory.add(new Cash(10,10));
-        inventory.add(new Cash(20, 10));
-        inventory.add(new Cash(100, 10));
+        CashDataAccess.getInstance().restock();
+    }
+
+    private ArrayList<Cash> getOrderedCashInventory() {
+        return CashDataAccess.getInstance().getOrderedCashInventory();
     }
 
     /**
@@ -51,8 +46,8 @@ public class CashService {
         // List to track the number of dispensed bills
         HashMap<Cash, Integer> billsToDispense = new HashMap<Cash, Integer>();
 
-        for (int i = inventory.size()-1; i >= 0; i--) {
-            Cash cash = inventory.get(i);
+        for (int i = getOrderedCashInventory().size()-1; i >= 0; i--) {
+            Cash cash = getOrderedCashInventory().get(i);
 
             // Find the number of bills of this denomination to dispense, and note it in the map
             int numBillsToDispense = cash.calculateNumBillsToDispense(remainingPayout);
@@ -70,7 +65,7 @@ public class CashService {
         // and log the message to the console
         if (remainingPayout == 0) {
             Output.logOutput("Dispensing:");
-            for (Cash cash:inventory) {
+            for (Cash cash:getOrderedCashInventory()) {
                 int numBillsToDispense = 0;
                 if (billsToDispense.containsKey(cash))
                     numBillsToDispense =  billsToDispense.get(cash);
@@ -91,7 +86,7 @@ public class CashService {
      */
     public void printStatus() {
         Output.logOutput(INVENTORY_TEXT);
-        for (Cash cash: inventory) {
+        for (Cash cash: getOrderedCashInventory()) {
             cash.printStatus();
         }
     }
