@@ -18,11 +18,10 @@ public class Cash implements Comparable<Cash> {
     }
 
     /**
-     * Prints the status of this cash denomination
+     * Returns a string representation of the status
      */
-    public void printStatus() {
-        Output.logOutput(String.format("$%d,%d",
-                getDenomination(), getNumBills()));
+    public String getStatus() {
+        return String.format("$%d,%d",getDenomination(), getNumBills());
     }
 
     /**

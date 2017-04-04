@@ -15,12 +15,14 @@ public class InputProcessor {
     private static final String QUIT_COMMAND = "Q";
     private static final String SET_WINNER_COMMAND = "W";
 
-    // Available services
+    // Dependent services (could be injected with a DI framework)
     private CashRestockService cashRestockService = new CashRestockService();
     private PayoutService payoutServiceService = new PayoutService();
     private PrintCashStatus printCashStatusService = new PrintCashStatus();
     private PrintHorseStatusService printHorseStatusService = new PrintHorseStatusService();
     private SetWinnerService setWinnerService = new SetWinnerService();
+    private Output output = new Output();
+
 
     public InputProcessor() {
         // Print status on startup
@@ -140,10 +142,10 @@ public class InputProcessor {
             }
         }
         catch (HorseTrackInputException e) {
-            Output.logOutput(e.getFormattedMessage());
+            output.logOutput(e.getFormattedMessage());
         }
         catch (Exception e) {
-            Output.logOutput(String.format("Unexpected error: %s", e.getMessage()));
+            output.logOutput(String.format("Unexpected error: %s", e.getMessage()));
         }
 
         // Print the status after processing each command

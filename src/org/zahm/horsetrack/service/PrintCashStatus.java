@@ -11,14 +11,15 @@ public class PrintCashStatus {
     private static final String INVENTORY_TEXT = "Inventory:";
 
     private CashDataAccess cashDataAccess = CashDataAccess.getInstance();
+    private Output output = new Output();
 
     /**
      * Print the status of the cash inventory
      */
     public void printStatus() {
-        Output.logOutput(INVENTORY_TEXT);
+        output.logOutput(INVENTORY_TEXT);
         for (Cash cash: cashDataAccess.getOrderedCashInventory()) {
-            cash.printStatus();
+            output.logOutput(cash.getStatus());
         }
     }
 }

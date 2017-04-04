@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class PayoutService {
     private CashDataAccess cashDataAccess = CashDataAccess.getInstance();
     private HorseDataAccess horseDataAccess = HorseDataAccess.getInstance();
+    private Output output = new Output();
 
     /**
      * Returns the payout of a horse if it is the winning horse (else 0)
@@ -32,9 +33,9 @@ public class PayoutService {
 
         if (winningHorse.getNumber() == horseNumber) {
             winnings = winningHorse.calculatePayout(amountOfBet);
-            Output.logOutput(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
+            output.logOutput(String.format("Payout: %s,$%d", winningHorse.getName(), winnings));
         } else {
-            Output.logOutput(String.format("No Payout: %s", horseDataAccess.findHorseWithNumber(horseNumber).getName()));
+            output.logOutput(String.format("No Payout: %s", horseDataAccess.findHorseWithNumber(horseNumber).getName()));
         }
 
         return winnings;
@@ -81,20 +82,20 @@ public class PayoutService {
         // If we've gotten to the end and the payout amount is 0, "commit" the transaction, dispense the bills,
         // and log the message to the console
         if (remainingPayout == 0) {
-            Output.logOutput("Dispensing:");
+            output.logOutput("Dispensing:");
             for (Cash cash:cashDataAccess.getOrderedCashInventory()) {
                 int numBillsToDispense = 0;
                 if (billsToDispense.containsKey(cash))
                     numBillsToDispense =  billsToDispense.get(cash);
 
                 cash.dispenseBills(numBillsToDispense);
-                Output.logOutput(String.format("$%d,%d", cash.getDenomination(), numBillsToDispense));
+                output.logOutput(String.format("$%d,%d", cash.getDenomination(), numBillsToDispense));
             }
         }
         // If the remaining amount to be paid out is not 0, we didn't have the right mix of bills
         // to service this request
         else {
-            Output.logOutput(String.format("Insufficient Funds: %d", payoutAmount));
+            output.logOutput(String.format("Insufficient Funds: %d", payoutAmount));
         }
     }
 }

@@ -4,7 +4,8 @@ package org.zahm.horsetrack.model;
  * Domain object that stores the properties of the Horse
  */
 public class Horse {
-
+    private static final String WON = "won";
+    private static final String LOST = "lost";
 
     private int number;
     private String name;
@@ -17,6 +18,20 @@ public class Horse {
     }
 
     /**
+     * Returns a string representation of the status
+     * @param winningHorse
+     * @return
+     */
+    public String getStatus(Horse winningHorse) {
+        String winnerText = LOST;
+        if (this.equals(winningHorse))
+            winnerText = WON;
+
+        return String.format("%d,%s,%d,%s",
+                getNumber(), getName(), getOdds(), winnerText);
+    }
+
+    /**
      * Calculate the payout should this horse win
      * @param betAmount
      * @return
@@ -25,7 +40,7 @@ public class Horse {
         return this.getOdds() * betAmount;
     }
 
-    // Use the horse number for equals, and set it as the hashcode value as well
+    // Use the horse number for equals, and set it as the hashcode value
 
     @Override
     public boolean equals(Object obj) {

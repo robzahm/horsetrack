@@ -10,7 +10,7 @@ public class Output {
      * Writes to standard out
      * @param message
      */
-    public static void logOutput(String message) {
+    public void logOutput(String message) {
         System.out.println(message);
     }
 }
