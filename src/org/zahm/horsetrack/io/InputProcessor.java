@@ -8,7 +8,7 @@ import org.zahm.horsetrack.exception.InvalidHorseException;
 import org.zahm.horsetrack.service.*;
 
 /**
- * Class to handle the user input
+ * Class to handle and validate the user input
  */
 public class InputProcessor {
     private static final String RESTOCK_COMMAND = "R";
