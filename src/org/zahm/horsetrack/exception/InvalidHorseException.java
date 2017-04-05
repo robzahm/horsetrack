@@ -10,6 +10,10 @@ public class InvalidHorseException extends HorseTrackInputException {
         super(input);
     }
 
+    public InvalidHorseException(int horseNumber) {
+        super(Integer.toString(horseNumber));
+    }
+
     @Override
     public String getFormattedMessage() {
         return String.format(formattedMessage, input);

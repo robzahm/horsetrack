@@ -10,6 +10,10 @@ public class InvalidBetException extends HorseTrackInputException {
         super(input);
     }
 
+    public InvalidBetException(int betAmount) {
+        super(Integer.toString(betAmount));
+    }
+
     @Override
     public String getFormattedMessage() {
         return String.format(formattedMessage, input);

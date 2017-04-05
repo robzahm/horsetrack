@@ -19,7 +19,7 @@ public class SetWinnerService {
     public void setWinningHorseByNumber(int winningHorse) throws InvalidHorseException {
         Horse newWinner = horseDataAccess.findHorseWithNumber(winningHorse);
         if (newWinner == null) {
-            throw new InvalidHorseException(Integer.toString(winningHorse));
+            throw new InvalidHorseException(winningHorse);
         }
 
         HorseDataAccess.getInstance().setWinningHorse(newWinner);
