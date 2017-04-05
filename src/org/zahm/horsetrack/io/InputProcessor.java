@@ -64,41 +64,42 @@ public class InputProcessor {
             // Split the input string by the whitespace
             String[] inputSplit = input.split(" ");
 
-            // If the input is a single string, we have a restock or quit case
-            if (inputSplit.length == 1)
-            {
-                if (RESTOCK_COMMAND.equalsIgnoreCase(input)) {
+            switch (inputSplit.length) {
+                case 1:
+                    // Restock
+                    if (RESTOCK_COMMAND.equalsIgnoreCase(input)) {
                     cashRestockService.restock();
-                }
-                else if (QUIT_COMMAND.equalsIgnoreCase(input)) {
-                    Main.quit();
-                }
-                else {
+                    }
+                    // Quit
+                    else if (QUIT_COMMAND.equalsIgnoreCase(input)) {
+                        Main.quit();
+                    }
+                    else {
+                        throw new InvalidCommandException();
+                    }
+                    break;
+
+                case 2:
+                    // Set Winner Case
+                    if (SET_WINNER_COMMAND.equalsIgnoreCase(inputSplit[0])) {
+                        horseNumber = parseInt(inputSplit[1]);
+                        setWinnerService.setWinningHorseByNumber(horseNumber);
+                    }
+                    // Check Bet Case
+                    else {
+                        horseNumber = parseInt(inputSplit[0]);
+                        betAmount = parseInt(inputSplit[1]);
+
+                        // Validate that the bet amount is >= 0 (assume we should win but pay out $0)
+                        if (betAmount < 0)
+                            throw new InvalidBetException();
+
+                        payoutServiceService.payout(horseNumber, betAmount);
+                    }
+                    break;
+
+                default:
                     throw new InvalidCommandException();
-                }
-            }
-            // If the input is 2 strings, we have a "set winner" or "check bet" case
-            else if (inputSplit.length == 2) {
-                // Set Winner Case
-                if (SET_WINNER_COMMAND.equalsIgnoreCase(inputSplit[0])) {
-                    horseNumber = parseInt(inputSplit[1]);
-                    setWinnerService.setWinningHorseByNumber(horseNumber);
-                }
-                // Check Bet Case
-                else {
-                    horseNumber = parseInt(inputSplit[0]);
-                    betAmount = parseInt(inputSplit[1]);
-
-                    // Validate that the bet amount is >= 0 (assume we should win but pay out $0)
-                    if (betAmount < 0)
-                        throw new InvalidBetException();
-
-                    payoutServiceService.payout(horseNumber, betAmount);
-                }
-            }
-            // If the input is 3+ strings, we have a bad command
-            else {
-                throw new InvalidCommandException();
             }
 
             // Print the status after processing each successful command
