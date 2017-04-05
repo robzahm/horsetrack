@@ -1,7 +1,6 @@
 package org.zahm.horsetrack.io;
 
 import org.zahm.horsetrack.Main;
-import org.zahm.horsetrack.exception.HorseTrackInputException;
 import org.zahm.horsetrack.exception.InvalidBetException;
 import org.zahm.horsetrack.exception.InvalidCommandException;
 import org.zahm.horsetrack.exception.InvalidHorseException;
@@ -34,62 +33,12 @@ public class InputProcessor {
         printHorseStatusService.printStatus();
     }
 
-    /**
-     * Handle a restock
-     */
-    private void handleRestockCommand() {
-        new CashRestockService().restock();
-    }
-
-    /**
-     * Handle a quit
-     */
-    private void handleQuitCommand() {
-        Main.quit();
-    }
-
-    /**
-     * Validate the input that an int horse number has been provided and call the service
-     * @param winningHorseNumber
-     * @throws InvalidHorseException
-     */
-    private void handleWinnerCommand(String winningHorseNumber) throws InvalidHorseException {
+    private int parseInt(String input) throws InvalidCommandException{
         try {
-            int horseNumber = Integer.parseInt(winningHorseNumber);
-            new SetWinnerService().setWinningHorseByNumber(horseNumber);
+            return Integer.parseInt(input);
         } catch (Exception e) {
-            throw new InvalidHorseException(winningHorseNumber);
+            throw new InvalidCommandException();
         }
-    }
-
-    /**
-     * Validate the input that an int horse number and bet amount have been provided and call the service
-     * @param horseNumberString
-     * @param betAmountString
-     * @throws InvalidHorseException
-     * @throws InvalidBetException
-     */
-    private void handleCheckBetCommand(String horseNumberString, String betAmountString) throws InvalidHorseException, InvalidBetException {
-        int horseNumber, betAmount;
-
-        try {
-            horseNumber = Integer.parseInt(horseNumberString);
-        } catch (Exception e) {
-            throw new InvalidHorseException(horseNumberString);
-        }
-
-        try {
-            betAmount = Integer.parseInt(betAmountString);
-
-            // Validate that the bet amount is >= 0 (assume we should win but pay out $0)
-            if (betAmount < 0)
-                throw new InvalidBetException(betAmount);
-
-        } catch (Exception e) {
-            throw new InvalidBetException(betAmountString);
-        }
-
-        payoutServiceService.payout(horseNumber, betAmount);
     }
 
     /**
@@ -103,6 +52,9 @@ public class InputProcessor {
      * @param input
      */
     public void processCommand(String input) {
+        int horseNumber = 0;
+        int betAmount = 0;
+
         try {
             // If a blank line was entered, return as we should ignore these commands (and assume we should not print
             // the status)
@@ -116,36 +68,50 @@ public class InputProcessor {
             if (inputSplit.length == 1)
             {
                 if (RESTOCK_COMMAND.equalsIgnoreCase(input)) {
-                    handleRestockCommand();
+                    cashRestockService.restock();
                 }
                 else if (QUIT_COMMAND.equalsIgnoreCase(input)) {
-                    handleQuitCommand();
+                    Main.quit();
                 }
                 else {
-                    throw new InvalidCommandException(input);
+                    throw new InvalidCommandException();
                 }
             }
             // If the input is 2 strings, we have a "set winner" or "check bet" case
             else if (inputSplit.length == 2) {
                 // Set Winner Case
                 if (SET_WINNER_COMMAND.equalsIgnoreCase(inputSplit[0])) {
-                    handleWinnerCommand(inputSplit[1]);
+                    horseNumber = parseInt(inputSplit[1]);
+                    setWinnerService.setWinningHorseByNumber(horseNumber);
                 }
                 // Check Bet Case
                 else {
-                    handleCheckBetCommand(inputSplit[0], inputSplit[1]);
+                    horseNumber = parseInt(inputSplit[0]);
+                    betAmount = parseInt(inputSplit[1]);
+
+                    // Validate that the bet amount is >= 0 (assume we should win but pay out $0)
+                    if (betAmount < 0)
+                        throw new InvalidBetException();
+
+                    payoutServiceService.payout(horseNumber, betAmount);
                 }
             }
             // If the input is 3+ strings, we have a bad command
             else {
-                throw new InvalidCommandException(input);
+                throw new InvalidCommandException();
             }
 
             // Print the status after processing each successful command
             printStatus();
         }
-        catch (HorseTrackInputException e) {
-            output.logOutput(e.getFormattedMessage());
+        catch (InvalidCommandException e) {
+            output.logOutput(String.format("Invalid Command: %s", input));
+        }
+        catch (InvalidHorseException e) {
+            output.logOutput(String.format("Invalid Horse Number: %d", horseNumber));
+        }
+        catch (InvalidBetException e) {
+            output.logOutput(String.format("Invalid Bet: %d", betAmount));
         }
         catch (Exception e) {
             output.logOutput(String.format("Unexpected error: %s", e.getMessage()));

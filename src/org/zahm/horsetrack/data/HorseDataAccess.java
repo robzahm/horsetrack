@@ -47,7 +47,7 @@ public class HorseDataAccess {
         try {
             return horses.get(horseIndex.get(horseNumber));
         } catch (Exception e) {
-            throw new InvalidHorseException(horseNumber);
+            throw new InvalidHorseException();
         }
     }
 
